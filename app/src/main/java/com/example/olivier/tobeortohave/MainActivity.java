@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.olivier.tobeortohave.Adapters.MenuAdapter;
@@ -96,6 +97,30 @@ public class MainActivity extends AppCompatActivity {
 //        chart.invalidate(); // refresh
 //
 //        chart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+
+    }
+
+    public void openStats(View view) {
+
+        System.out.println("OPENSTATSm");
+
+    }
+
+    public void openStores(View view) {
+
+        System.out.println("OPENSTATSm");
+
+    }
+
+    public void openMap(View view) {
+
+        System.out.println("OPENSTATSm");
+
+    }
+
+    public void openSearch(View view) {
+
+        System.out.println("OPENSTATSm");
 
     }
 }
