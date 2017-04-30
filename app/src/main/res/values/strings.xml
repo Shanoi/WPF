@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">toBeOrToHave</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="Carte">Map</string>
+    <string name="Rechercher">Search</string>
+    <string name="Statistiques">Stats</string>
+    <string name="Magasins">Shops</string>
 </resources>

@@ -3,9 +3,14 @@ package com.example.olivier.tobeortohave;
 import android.graphics.Color;
 import android.os.RecoverySystem;
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
+import com.example.olivier.tobeortohave.Adapters.MenuAdapter;
+import com.example.olivier.tobeortohave.Data.MenuElement;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -20,16 +25,31 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_menu);
 
-        ProgressBar bar = (ProgressBar) findViewById(R.id.bar);
+       //RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gridNews);
 
-        bar.setProgress(99);
+        //MenuAdapter menuAdapter = new MenuAdapter();
+
+        //recyclerView.setAdapter(menuAdapter);
+
+        //gridView.setAdapter(ListAdapter);
+
+      // recyclerView.setAdapter(ListAdapter);
+
+      //  recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+
+       /* ProgressBar bar = (ProgressBar) findViewById(R.id.bar);
+
+        bar.setProgress(99);*/
 
 //        PieChart chart = (PieChart) findViewById(R.id.chart);
 //

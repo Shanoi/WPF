@@ -7,14 +7,9 @@
     tools:context="com.example.olivier.tobeortohave.MainActivity">
 
 
-    <ProgressBar
-        android:id="@+id/bar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/custom_progressbar"
-        style="@style/CustomProgressBarHorizontal"
-        android:progress="50"
-        android:max="100"
-       />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gridNews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Rechercher">Rechercher</string>
+    <string name="Statistiques">Statistiques</string>
+    <string name="Carte">Carte</string>
+    <string name="Magasins">Magasins</string>
+</resources>
