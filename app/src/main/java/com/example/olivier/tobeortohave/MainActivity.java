@@ -1,5 +1,6 @@
 package com.example.olivier.tobeortohave;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.RecoverySystem;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.example.olivier.tobeortohave.Adapters.MenuAdapter;
 import com.example.olivier.tobeortohave.Data.MenuElement;
+import com.example.olivier.tobeortohave.Magasins.ShopListActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -108,13 +110,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void openStores(View view) {
 
-        System.out.println("OPENSTATSm");
+        Intent myIntent = new Intent(MainActivity.this, ShopListActivity.class);
+
+        startActivity(myIntent);
 
     }
 
     public void openMap(View view) {
 
-        System.out.println("OPENSTATSm");
+        Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
+
+        startActivity(myIntent);
 
     }
 

@@ -5,4 +5,6 @@
     <string name="Rechercher">Search</string>
     <string name="Statistiques">Stats</string>
     <string name="Magasins">Shops</string>
+    <string name="title_shop_list">Shops</string>
+    <string name="title_shop_detail">Shop Detail</string>
 </resources>
