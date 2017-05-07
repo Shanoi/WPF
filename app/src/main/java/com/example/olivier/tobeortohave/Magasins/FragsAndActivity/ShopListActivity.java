@@ -7,20 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Data.Magasin;
-import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailActivity;
-import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailFragment;
 import com.example.olivier.tobeortohave.R;
-
-import com.example.olivier.tobeortohave.Magasins.dummy.DummyContent;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -91,7 +84,7 @@ public class ShopListActivity extends AppCompatActivity {
     }
 
     public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+            extends RecyclerView.Adapter<ListShopViewHolder> {
 
         private final List<Magasin> mValues;
 
@@ -100,14 +93,14 @@ public class ShopListActivity extends AppCompatActivity {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ListShopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shop_list_content, parent, false);
-            return new ViewHolder(view);
+            return new ListShopViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final ListShopViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(mValues.get(position).getNom());
             holder.mContentView.setText(mValues.get(position).getAdresse());
@@ -139,23 +132,6 @@ public class ShopListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public Magasin mItem;
 
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
-            }
-        }
     }
 }
