@@ -1,4 +1,4 @@
-package com.example.olivier.tobeortohave.Magasins;
+package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Data.Magasin;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailActivity;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailFragment;
 import com.example.olivier.tobeortohave.R;
 
 import com.example.olivier.tobeortohave.Magasins.dummy.DummyContent;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,15 +52,6 @@ public class ShopListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         View recyclerView = findViewById(R.id.shop_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
@@ -68,15 +66,36 @@ public class ShopListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+
+        ArrayList<Magasin> magasin;
+
+        DBHelper DB = new DBHelper(this);
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            magasin = (ArrayList<Magasin>) DB.getAllArticles();
+
+            DB.close();
+
+            recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(magasin));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Magasin> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        public SimpleItemRecyclerViewAdapter(List<Magasin> items) {
             mValues = items;
         }
 
@@ -90,15 +109,15 @@ public class ShopListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).getNom());
+            holder.mContentView.setText(mValues.get(position).getAdresse());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putString(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getNom());
                         ShopDetailFragment fragment = new ShopDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -107,7 +126,7 @@ public class ShopListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, ShopDetailActivity.class);
-                        intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getNom());
 
                         context.startActivity(intent);
                     }
@@ -124,7 +143,7 @@ public class ShopListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public Magasin mItem;
 
             public ViewHolder(View view) {
                 super(view);

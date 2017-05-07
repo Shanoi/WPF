@@ -1,4 +1,4 @@
-package com.example.olivier.tobeortohave.Magasins;
+package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;

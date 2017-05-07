@@ -1,41 +1,29 @@
 package com.example.olivier.tobeortohave;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.RecoverySystem;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
-import com.example.olivier.tobeortohave.Adapters.MenuAdapter;
-import com.example.olivier.tobeortohave.Data.MenuElement;
-import com.example.olivier.tobeortohave.Magasins.ShopListActivity;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Data.Magasin;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
+
+
 
        //RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gridNews);
 

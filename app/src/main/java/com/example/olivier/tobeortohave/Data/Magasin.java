@@ -6,6 +6,7 @@ package com.example.olivier.tobeortohave.Data;
 
 public class Magasin {
 
+    private int id;
     private String nom;
     private String adresse;
     private String postalCode;
@@ -15,7 +16,9 @@ public class Magasin {
     private String mail;
     private String pageWeb;
 
-    public Magasin(String nom, String adresse, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb) {
+    public Magasin(int id, String nom, String adresse, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb) {
+
+        this.id = id;
         this.nom = nom;
         this.adresse = adresse;
         this.postalCode = postalCode;
@@ -24,6 +27,10 @@ public class Magasin {
         this.telephone = telephone;
         this.mail = mail;
         this.pageWeb = pageWeb;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNom() {

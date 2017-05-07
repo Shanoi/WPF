@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.example.olivier.tobeortohave.Magasins.ShopListActivity"
+    tools:context="com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity"
     tools:listitem="@layout/shop_list_content" />
