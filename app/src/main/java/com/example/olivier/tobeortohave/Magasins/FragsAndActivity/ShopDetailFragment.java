@@ -1,6 +1,7 @@
 package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.olivier.tobeortohave.Data.Magasin;
+import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.DayAxisValueFormatter;
+import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.MyAxisValueFormatter;
 import com.example.olivier.tobeortohave.R;
-import com.example.olivier.tobeortohave.Magasins.dummy.DummyContent;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -85,64 +86,62 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             ((TextView) rootView.findViewById(R.id.shop_detail)).setText(mItem);
         }
 
-        mChart = (BarChart) rootView.findViewById(R.id.chart);
-        mChart.setOnChartValueSelectedListener(this);
-
-        mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
-
-        mChart.getDescription().setEnabled(false);
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        mChart.setMaxVisibleValueCount(60);
-
-        // scaling can now only be done on x- and y-axis separately
-        mChart.setPinchZoom(false);
-
-        mChart.setDrawGridBackground(false);
-        // mChart.setDrawYLabels(false);
-
-        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
-
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(7);
-        xAxis.setValueFormatter(xAxisFormatter);
-
-        IAxisValueFormatter custom = new MyAxisValueFormatter();
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setLabelCount(8, false);
-        leftAxis.setValueFormatter(custom);
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setSpaceTop(15f);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setValueFormatter(custom);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        Legend l = mChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(false);
-        l.setForm(Legend.LegendForm.SQUARE);
-        l.setFormSize(9f);
-        l.setTextSize(11f);
-        l.setXEntrySpace(4f);
+//        mChart = (BarChart) rootView.findViewById(R.id.chart);
+//        mChart.setOnChartValueSelectedListener(this);
+//
+//        mChart.setDrawBarShadow(false);
+//        mChart.setDrawValueAboveBar(true);
+//
+//        mChart.getDescription().setEnabled(false);
+//
+//        // if more than 60 entries are displayed in the chart, no values will be
+//        // drawn
+//        mChart.setMaxVisibleValueCount(60);
+//
+//        // scaling can now only be done on x- and y-axis separately
+//        mChart.setPinchZoom(false);
+//
+//        mChart.setDrawGridBackground(false);
+//        // mChart.setDrawYLabels(false);
+//
+//        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
+//
+//        XAxis xAxis = mChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setGranularity(1f); // only intervals of 1 day
+//        xAxis.setLabelCount(7);
+//        xAxis.setValueFormatter(xAxisFormatter);
+//
+//        IAxisValueFormatter custom = new MyAxisValueFormatter();
+//
+//        YAxis leftAxis = mChart.getAxisLeft();
+//        leftAxis.setLabelCount(8, false);
+//        leftAxis.setValueFormatter(custom);
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+//        leftAxis.setSpaceTop(15f);
+//        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        YAxis rightAxis = mChart.getAxisRight();
+//        rightAxis.setDrawGridLines(false);
+//        rightAxis.setLabelCount(8, false);
+//        rightAxis.setValueFormatter(custom);
+//        rightAxis.setSpaceTop(15f);
+//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        Legend l = mChart.getLegend();
+//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+//        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+//        l.setDrawInside(false);
+//        l.setForm(Legend.LegendForm.SQUARE);
+//        l.setFormSize(9f);
+//        l.setTextSize(11f);
+//        l.setXEntrySpace(4f);
         // l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
         // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
-
-
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
@@ -178,5 +177,32 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
     @Override
     public void onNothingSelected() {
 
+    }
+
+    private void fetchData(){
+
+        String request = "SELECT * FROM Informations WHERE idMagasin = 1";
+
+
+    }
+
+    private BarData generateData(int cnt) {
+
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < 12; i++) {
+            entries.add(new BarEntry(i, (float) (Math.random() * 70) + 30));
+        }
+
+        BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setBarShadowColor(Color.rgb(203, 203, 203));
+
+        ArrayList<IBarDataSet> sets = new ArrayList<IBarDataSet>();
+        sets.add(d);
+
+        BarData cd = new BarData(sets);
+        cd.setBarWidth(0.9f);
+        return cd;
     }
 }
