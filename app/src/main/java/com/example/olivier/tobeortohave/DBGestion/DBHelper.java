@@ -92,6 +92,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
+    public Cursor fetchData(int id) {
+
+        Cursor mCursor = myDataBase.rawQuery("SELECT * FROM Informations WHERE idMagasin = " + id + " AND idInformation < 10", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
+
     public List<Magasin> getAllArticles() {
 
         ArrayList<Magasin> magasins = new ArrayList<>();
