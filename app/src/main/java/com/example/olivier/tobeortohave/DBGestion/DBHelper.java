@@ -94,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor fetchData(int id) {
 
-        Cursor mCursor = myDataBase.rawQuery("SELECT * FROM Informations WHERE idMagasin = " + id + " AND idInformation < 10", null);
+        Cursor mCursor = myDataBase.rawQuery("SELECT * FROM Informations WHERE idMagasin = " + id, null);
 
         if (mCursor != null) {
             mCursor.moveToFirst();

@@ -224,7 +224,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         String request = "SELECT * FROM Informations WHERE idMagasin = 1";
 
         SimpleDateFormat formatIO = new SimpleDateFormat("dd/MM/yy");
-        DateFormat df = new SimpleDateFormat("yyMMdd");
+        DateFormat df = new SimpleDateFormat("yyMM");
 
         Date enDate;
 
@@ -239,7 +239,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
             DB.openDataBase();
 
-            Cursor cursor = DB.fetchData(1);
+            Cursor cursor = DB.fetchData(2);
 
 
             while (!cursor.isAfterLast()) {
@@ -250,7 +250,15 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
                 System.out.println("EN INT : " + enInt);
 
-                values.add(new BarEntry(enInt, cursor.getFloat(2)));
+                if (enInt > 1800) {
+
+                    values.add(new BarEntry(enInt - 88, cursor.getFloat(2)));
+
+                }else{
+
+                    values.add(new BarEntry(enInt, cursor.getFloat(2)));
+
+                }
 
                 cursor.moveToNext();
 
