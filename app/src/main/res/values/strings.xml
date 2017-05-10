@@ -7,4 +7,6 @@
     <string name="Magasins">Shops</string>
     <string name="title_shop_list">Shops</string>
     <string name="title_shop_detail">Shop Detail</string>
+    <string name="CA">Turnover</string>
+    <string name="coutMaintenance">Cost of Maintenance</string>
 </resources>

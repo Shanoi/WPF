@@ -4,4 +4,6 @@
     <string name="Statistiques">Statistiques</string>
     <string name="Carte">Carte</string>
     <string name="Magasins">Magasins</string>
+    <string name="CA">Chiffre d\'affaire</string>
+    <string name="coutMaintenance">Coût Maintenance</string>
 </resources>

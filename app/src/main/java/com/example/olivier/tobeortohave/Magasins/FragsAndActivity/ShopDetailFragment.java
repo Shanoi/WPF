@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
-import com.example.olivier.tobeortohave.Data.Magasin;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisDayFormatter;
-import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.DayAxisValueFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.MyAxisValueFormatter;
 import com.example.olivier.tobeortohave.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -61,8 +59,6 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     private int idShop;
 
-    protected BarChart mChart;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -104,25 +100,30 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             ((TextView) rootView.findViewById(R.id.shop_detail)).setText(mItem);
         }
 
-        mChart = (BarChart) rootView.findViewById(R.id.chart);
-        mChart.setOnChartValueSelectedListener(this);
+        BarChart caChart = (BarChart) rootView.findViewById(R.id.caChart);
 
-        generateDataChart();
+        caChart.setOnChartValueSelectedListener(this);
 
-        ArrayList<BarEntry> yVals1 = fetchData();
+        BarChart employeesChart = (BarChart) rootView.findViewById(R.id.employeesChart);
 
-        BarDataSet set1;
-        set1 = new BarDataSet(yVals1, "The year 2017");
-        set1.setColors(ColorTemplate.MATERIAL_COLORS);
+        employeesChart.setOnChartValueSelectedListener(this);
 
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
+        BarChart maintenanceChart = (BarChart) rootView.findViewById(R.id.maintenanceChart);
 
-        BarData data = new BarData(dataSets);
-        data.setValueTextSize(10f);
-        data.setBarWidth(0.9f);
+        maintenanceChart.setOnChartValueSelectedListener(this);
 
-        mChart.setData(data);
+        BarChart prodrenvChart = (BarChart) rootView.findViewById(R.id.prodrenvChart);
+
+        prodrenvChart.setOnChartValueSelectedListener(this);
+
+
+        generateDataMoneyChart(caChart);
+        generateDataMoneyChart(maintenanceChart);
+
+        ArrayList<ArrayList<BarEntry>> barEntries = fetchData();
+
+        setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
+        setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
 
 //
 //        mChart.setDrawBarShadow(false);
@@ -217,7 +218,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     }
 
-    private ArrayList<BarEntry> fetchData() {
+    private ArrayList<ArrayList<BarEntry>> fetchData() {
 
         System.out.println("Fetch");
 
@@ -232,7 +233,12 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
         DBHelper DB = new DBHelper(this.getContext());
 
-        ArrayList<BarEntry> values = new ArrayList<>();
+        ArrayList<ArrayList<BarEntry>> data = new ArrayList<>();
+
+        ArrayList<BarEntry> caValues = new ArrayList<>();
+        ArrayList<BarEntry> employeesValues = new ArrayList<>();
+        ArrayList<BarEntry> maintenanceValues = new ArrayList<>();
+        ArrayList<BarEntry> prodrenvValues = new ArrayList<>();
 
         try {
             DB.createDataBase();
@@ -252,13 +258,14 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
                 if (enInt > 1800) {
 
-                    values.add(new BarEntry(enInt - 88, cursor.getFloat(2)));
-
-                }else{
-
-                    values.add(new BarEntry(enInt, cursor.getFloat(2)));
+                    enInt -= 88;
 
                 }
+
+                caValues.add(new BarEntry(enInt, cursor.getFloat(2)));
+                employeesValues.add(new BarEntry(enInt, cursor.getFloat(3)));
+                maintenanceValues.add(new BarEntry(enInt, cursor.getFloat(4)));
+                prodrenvValues.add(new BarEntry(enInt, cursor.getFloat(5)));
 
                 cursor.moveToNext();
 
@@ -271,7 +278,12 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             e.printStackTrace();
         }
 
-        return values;
+        data.add(caValues);
+        data.add(employeesValues);
+        data.add(maintenanceValues);
+        data.add(prodrenvValues);
+
+        return data;
 
     }
 
@@ -295,7 +307,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         return cd;
     }
 
-    private void generateDataChart() {
+    private void generateDataMoneyChart(BarChart mChart) {
 
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
@@ -330,12 +342,14 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        YAxis rightAxis = mChart.getAxisRight();
+        mChart.getAxisRight().setEnabled(false);
+
+        /*YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
         rightAxis.setLabelCount(8, false);
         rightAxis.setValueFormatter(custom);
         rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        rightAxis.setAxisMinimum(0f); */ // this replaces setStartAtZero(true)
 
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -351,7 +365,23 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
 
-        System.err.println("generate");
+    }
+
+    private void setDatatoChart(BarChart barChart, ArrayList<BarEntry> barEntries, String title){
+
+        BarDataSet set1;
+        set1 = new BarDataSet(barEntries, title);
+        set1.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(dataSets);
+        data.setValueTextSize(10f);
+        data.setBarWidth(0.9f);
+
+        barChart.setData(data);
 
     }
+
 }
