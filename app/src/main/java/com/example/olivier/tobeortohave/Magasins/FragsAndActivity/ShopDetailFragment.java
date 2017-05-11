@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisCurrencyFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisDayFormatter;
-import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.MyAxisValueFormatter;
+import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisNumberFormatter;
+import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisPeopleFormatter;
 import com.example.olivier.tobeortohave.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -117,13 +119,17 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         prodrenvChart.setOnChartValueSelectedListener(this);
 
 
-        generateDataMoneyChart(caChart);
-        generateDataMoneyChart(maintenanceChart);
+        generateDataChart(caChart, new AxisCurrencyFormatter());
+        generateDataChart(maintenanceChart, new AxisCurrencyFormatter());
+        generateDataChart(employeesChart, new AxisPeopleFormatter());
+        generateDataChart(prodrenvChart, new AxisNumberFormatter());
 
         ArrayList<ArrayList<BarEntry>> barEntries = fetchData();
 
         setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
         setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
+        setDatatoChart(employeesChart, barEntries.get(1), getString(R.string.nbEmployés));
+        setDatatoChart(prodrenvChart, barEntries.get(3), getString(R.string.nbProdRenv));
 
 //
 //        mChart.setDrawBarShadow(false);
@@ -150,7 +156,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 //        xAxis.setLabelCount(7);
 //        xAxis.setValueFormatter(xAxisFormatter);
 //
-//        IAxisValueFormatter custom = new MyAxisValueFormatter();
+//        IAxisValueFormatter custom = new AxisCurrencyFormatter();
 //
 //        YAxis leftAxis = mChart.getAxisLeft();
 //        leftAxis.setLabelCount(8, false);
@@ -307,7 +313,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         return cd;
     }
 
-    private void generateDataMoneyChart(BarChart mChart) {
+    private void generateDataChart(BarChart mChart, IAxisValueFormatter valueFormatter) {
 
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
@@ -333,11 +339,11 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
 
-        IAxisValueFormatter custom = new MyAxisValueFormatter();
+        //IAxisValueFormatter custom = new AxisCurrencyFormatter();
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setLabelCount(8, false);
-        leftAxis.setValueFormatter(custom);
+        leftAxis.setValueFormatter(valueFormatter);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)

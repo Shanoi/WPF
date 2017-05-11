@@ -5,17 +5,17 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.DecimalFormat;
 
-public class MyAxisValueFormatter implements IAxisValueFormatter
+public class AxisPeopleFormatter implements IAxisValueFormatter
 {
 
     private DecimalFormat mFormat;
 
-    public MyAxisValueFormatter() {
+    public AxisPeopleFormatter() {
         mFormat = new DecimalFormat("###,###,###,##0.0");
     }
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        return mFormat.format(value) + " €";
+        return mFormat.format(value) + " emp.";
     }
 }

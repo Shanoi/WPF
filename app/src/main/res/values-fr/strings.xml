@@ -6,4 +6,6 @@
     <string name="Magasins">Magasins</string>
     <string name="CA">Chiffre d\'affaire</string>
     <string name="coutMaintenance">Coût Maintenance</string>
+    <string name="nbEmployés">Nombre d\'employés</string>
+    <string name="nbProdRenv">Nombre de produits renvoyés</string>
 </resources>

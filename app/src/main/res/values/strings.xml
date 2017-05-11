@@ -9,4 +9,6 @@
     <string name="title_shop_detail">Shop Detail</string>
     <string name="CA">Turnover</string>
     <string name="coutMaintenance">Cost of Maintenance</string>
+    <string name="nbEmployés">Number of Employees</string>
+    <string name="nbProdRenv">Number of returned products</string>
 </resources>
