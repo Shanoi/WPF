@@ -1,14 +1,17 @@
 package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
@@ -64,6 +67,8 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     private int idShop;
 
+    private Magasin shop;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -75,9 +80,9 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_SHOP)){
+        if (getArguments().containsKey(ARG_SHOP)) {
 
-            Magasin shop = getArguments().getParcelable(ARG_SHOP);
+            shop = getArguments().getParcelable(ARG_SHOP);
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -114,8 +119,47 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.shop_detail)).setText(mItem);
+            ((TextView) rootView.findViewById(R.id.shop_name)).setText(mItem);
         }
+
+
+        ((Button) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String posted_by = "0641675381";
+
+                String uri = "tel:" + posted_by.trim();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(uri));
+                startActivity(intent);
+
+            }
+        });
+
+        ((Button) rootView.findViewById(R.id.btn_mail)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "abc@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+            }
+        });
+
+        ((Button) rootView.findViewById(R.id.btn_webPage)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url = "http://www.example.com";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         BarChart caChart = (BarChart) rootView.findViewById(R.id.caChart);
 
@@ -139,7 +183,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         generateDataChart(employeesChart, new AxisPeopleFormatter());
         generateDataChart(prodrenvChart, new AxisNumberFormatter());
 
-        ArrayList<ArrayList<BarEntry>> barEntries = fetchData();
+        ArrayList<ArrayList<BarEntry>> barEntries = fetchData(shop.getId());
 
         setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
         setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
@@ -239,11 +283,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     }
 
-    private ArrayList<ArrayList<BarEntry>> fetchData() {
-
-        System.out.println("Fetch");
-
-        String request = "SELECT * FROM Informations WHERE idMagasin = 1";
+    private ArrayList<ArrayList<BarEntry>> fetchData(int idShop) {
 
         SimpleDateFormat formatIO = new SimpleDateFormat("dd/MM/yy");
         DateFormat df = new SimpleDateFormat("yyMM");
@@ -266,7 +306,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
             DB.openDataBase();
 
-            Cursor cursor = DB.fetchData(2);
+            Cursor cursor = DB.fetchData(idShop);
 
 
             while (!cursor.isAfterLast()) {
@@ -366,7 +406,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     }
 
-    private void setDatatoChart(BarChart barChart, ArrayList<BarEntry> barEntries, String title){
+    private void setDatatoChart(BarChart barChart, ArrayList<BarEntry> barEntries, String title) {
 
         BarDataSet set1;
         set1 = new BarDataSet(barEntries, title);
