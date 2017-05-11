@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Data.Magasin;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisCurrencyFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisDayFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisNumberFormatter;
@@ -54,6 +55,8 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     public static final String ARG_ITEM_ID = "item_id";
 
+    public static final String ARG_SHOP = "magasin";
+
     /**
      * The dummy content this fragment is presenting.
      */
@@ -72,7 +75,19 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_NOM)) {
+        if (getArguments().containsKey(ARG_SHOP)){
+
+            Magasin shop = getArguments().getParcelable(ARG_SHOP);
+
+            Activity activity = this.getActivity();
+            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(shop != null ? shop.getNom() : null);
+            }
+
+        }
+
+        /*if (getArguments().containsKey(ARG_ITEM_NOM)) {
 
             mItem = getArguments().getString(ARG_ITEM_NOM);
 
@@ -87,7 +102,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
             idShop = getArguments().getInt(ARG_ITEM_ID);
 
-        }
+        }*/
 
 
     }
@@ -255,12 +270,10 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
 
             while (!cursor.isAfterLast()) {
-                System.out.println("DATAAS : " + cursor.getString(1));
+
                 enDate = formatIO.parse(cursor.getString(1));
 
                 enInt = Integer.valueOf(df.format(enDate));
-
-                System.out.println("EN INT : " + enInt);
 
                 if (enInt > 1800) {
 
@@ -291,26 +304,6 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
         return data;
 
-    }
-
-    private BarData generateData(int cnt) {
-
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-
-        for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry(i, (float) (Math.random() * 70) + 30));
-        }
-
-        BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        d.setBarShadowColor(Color.rgb(203, 203, 203));
-
-        ArrayList<IBarDataSet> sets = new ArrayList<IBarDataSet>();
-        sets.add(d);
-
-        BarData cd = new BarData(sets);
-        cd.setBarWidth(0.9f);
-        return cd;
     }
 
     private void generateDataChart(BarChart mChart, IAxisValueFormatter valueFormatter) {

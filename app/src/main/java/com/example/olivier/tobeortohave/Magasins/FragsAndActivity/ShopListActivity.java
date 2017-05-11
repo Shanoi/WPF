@@ -112,6 +112,7 @@ public class ShopListActivity extends AppCompatActivity {
                         Bundle arguments = new Bundle();
                         arguments.putString(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
                         arguments.putInt(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        arguments.putParcelable(ShopDetailFragment.ARG_SHOP, holder.mItem);
                         ShopDetailFragment fragment = new ShopDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -122,6 +123,7 @@ public class ShopListActivity extends AppCompatActivity {
                         Intent intent = new Intent(context, ShopDetailActivity.class);
                         intent.putExtra(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
                         intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
+                        intent.putExtra(ShopDetailFragment.ARG_SHOP, holder.mItem);
 
                         context.startActivity(intent);
                     }

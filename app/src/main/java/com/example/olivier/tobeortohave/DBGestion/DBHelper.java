@@ -115,8 +115,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while (!cursor.isAfterLast()) {
 
-            System.out.println(cursor.getString(1));
-
             magasins.add(new Magasin(cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
