@@ -41,7 +41,7 @@
         <activity
             android:name=".Magasins.FragsAndActivity.ShopListActivity"
             android:label="@string/title_shop_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Magasins.FragsAndActivity.ShopDetailActivity"
             android:label="@string/title_shop_detail"
@@ -51,6 +51,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity" />
         </activity>
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

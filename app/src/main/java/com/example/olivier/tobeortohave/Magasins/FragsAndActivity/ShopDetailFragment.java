@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
@@ -122,8 +123,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             ((TextView) rootView.findViewById(R.id.shop_name)).setText(mItem);
         }
 
-
-        ((Button) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
+        ((ImageButton) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -137,7 +137,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             }
         });
 
-        ((Button) rootView.findViewById(R.id.btn_mail)).setOnClickListener(new View.OnClickListener() {
+        ((ImageButton) rootView.findViewById(R.id.btn_mail)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -150,7 +150,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             }
         });
 
-        ((Button) rootView.findViewById(R.id.btn_webPage)).setOnClickListener(new View.OnClickListener() {
+        ((ImageButton) rootView.findViewById(R.id.btn_webPage)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
