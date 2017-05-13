@@ -13,4 +13,5 @@
     <string name="desc_btn_call_shop">Appeler ce magasin</string>
     <string name="launch_search">Lancer la recherche</string>
     <string name="reset_fields">Vider les champs de recherche</string>
+    <string name="title_activity_search">Recherche</string>
 </resources>
