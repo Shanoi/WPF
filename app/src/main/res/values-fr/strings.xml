@@ -11,4 +11,6 @@
     <string name="desc_btn_go_webPage_shop">Aller à la page web du magasin</string>
     <string name="desc_btn_send_email_shop">Envoyer un email au magasin</string>
     <string name="desc_btn_call_shop">Appeler ce magasin</string>
+    <string name="launch_search">Lancer la recherche</string>
+    <string name="reset_fields">Vider les champs de recherche</string>
 </resources>

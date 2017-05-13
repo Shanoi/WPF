@@ -6,13 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.olivier.tobeortohave.DBGestion.DBHelper;
-import com.example.olivier.tobeortohave.Data.Magasin;
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSearch(View view) {
 
-        System.out.println("OPENSTATSm");
+        Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+
+        startActivity(myIntent);
+
 
     }
 }
