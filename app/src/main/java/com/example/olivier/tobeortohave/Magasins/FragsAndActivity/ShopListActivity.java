@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -72,6 +74,12 @@ public class ShopListActivity extends AppCompatActivity {
             magasin = (ArrayList<Magasin>) DB.getAllArticles();
 
             DB.close();
+
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+            DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                    mLayoutManager.getOrientation());
+            recyclerView.addItemDecoration(mDividerItemDecoration);
 
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(magasin));
 
