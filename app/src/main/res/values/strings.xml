@@ -17,4 +17,5 @@
     <string name="title_activity_search">Search</string>
     <string name="launch_search">Launch search</string>
     <string name="reset_fields">Reset fields</string>
+    <string name="choose_dpt">Choose departement</string>
 </resources>

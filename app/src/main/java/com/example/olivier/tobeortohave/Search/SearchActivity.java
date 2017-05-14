@@ -1,18 +1,22 @@
 package com.example.olivier.tobeortohave.Search;
 
+import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Spinner;
 
+import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
+
+    ArrayList<SpinnerItemDpt> dpts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,22 +25,50 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final String[] select_qualification = {
-                "Select Qualification", "10th / Below", "12th", "Diploma", "UG",
-                "PG", "Phd"};
         Spinner spinner = (Spinner) findViewById(R.id.dptChoice);
 
-        ArrayList<SpinnerItem> listVOs = new ArrayList<>();
+        fetchDpt();
 
-        for (int i = 0; i < select_qualification.length; i++) {
-            SpinnerItem stateVO = new SpinnerItem();
-            stateVO.setTitle(select_qualification[i]);
-            stateVO.setSelected(false);
-            listVOs.add(stateVO);
-        }
-        AdpaterSpinner myAdapter = new AdpaterSpinner(SearchActivity.this, 0,
-                listVOs);
+        AdapterSpinner myAdapter = new AdapterSpinner(SearchActivity.this, 0,
+                dpts);
         spinner.setAdapter(myAdapter);
+
+    }
+
+    private void fetchDpt() {
+
+        DBHelper DB = new DBHelper(this);
+
+        dpts = new ArrayList<>();
+
+        dpts.add(new SpinnerItemDpt("", getString(R.string.choose_dpt)));
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            Cursor cursor = DB.fetchDpt();
+
+
+            while (!cursor.isAfterLast()) {
+
+                dpts.add(new SpinnerItemDpt(cursor.getString(2), cursor.getString(0)));
+
+                cursor.moveToNext();
+
+            }
+
+            cursor.close();
+
+            DB.close();
+        } catch (IOException | SQLException | java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void openSearch(View view) {
 
     }
 

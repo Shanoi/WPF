@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.R;
@@ -18,16 +17,16 @@ import java.util.List;
  * Created by Olivier on 14/05/2017.
  */
 
-public class AdpaterSpinner extends ArrayAdapter<SpinnerItem> {
+public class AdapterSpinner extends ArrayAdapter<SpinnerItemDpt> {
     private Context mContext;
-    private ArrayList<SpinnerItem> listState;
-    private AdpaterSpinner myAdapter;
+    private ArrayList<SpinnerItemDpt> listState;
+    private AdapterSpinner myAdapter;
     private boolean isFromView = false;
 
-    public AdpaterSpinner(Context context, int resource, List<SpinnerItem> objects) {
+    public AdapterSpinner(Context context, int resource, List<SpinnerItemDpt> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.listState = (ArrayList<SpinnerItem>) objects;
+        this.listState = (ArrayList<SpinnerItemDpt>) objects;
         this.myAdapter = this;
     }
 
@@ -60,26 +59,27 @@ public class AdpaterSpinner extends ArrayAdapter<SpinnerItem> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mTextView.setText(listState.get(position).getTitle());
+        holder.mTextView.setText(listState.get(position).getDpt());
 
         // To check weather checked event fire from getview() or user input
-        isFromView = true;
+        /*isFromView = true;
         holder.mCheckBox.setChecked(listState.get(position).isSelected());
-        isFromView = false;
+        isFromView = false;*/
 
         if ((position == 0)) {
             holder.mCheckBox.setVisibility(View.INVISIBLE);
         } else {
             holder.mCheckBox.setVisibility(View.VISIBLE);
         }
+
         holder.mCheckBox.setTag(position);
 
         holder.mCheckBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {       //Detect on which sensor we have tick or not the checkbox
                 CheckBox cb = (CheckBox) v;
-                SpinnerItem spinnerItem = (SpinnerItem) cb.getTag();
+                SpinnerItemDpt spinnerItemDpt = (SpinnerItemDpt) cb.getTag();
 
-                spinnerItem.setSelected(cb.isChecked());
+                spinnerItemDpt.setSelected(cb.isChecked());
 
                 /*for (int i = 0; i < Sensors.size(); i++) {
 
@@ -106,7 +106,7 @@ public class AdpaterSpinner extends ArrayAdapter<SpinnerItem> {
             }
         });*/
 
-        SpinnerItem listItem = (SpinnerItem) getItem(position);
+        SpinnerItemDpt listItem = (SpinnerItemDpt) getItem(position);
 
         holder.mCheckBox.setChecked(listItem.isSelected());
         holder.mCheckBox.setTag(listItem);

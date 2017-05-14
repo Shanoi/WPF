@@ -104,6 +104,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor fetchDpt() {
+
+        Cursor mCursor = myDataBase.rawQuery("SELECT * FROM departements", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
+
     public List<Magasin> getMagasins() {
 
         ArrayList<Magasin> magasins = new ArrayList<>();
@@ -112,9 +124,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         /*Cursor cursor = myDataBase.rawQuery("SELECT * " +
                 "FROM magasin WHERE codePostale LIKE '01%' OR codePostale LIKE '02%'", null);*/
-
-        /*Cursor cursor = myDataBase.rawQuery("SELECT * " +
-                "FROM magasin WHERE codePostale LIKE '(SELECT num_departement FROM departements WHERE num_region = 7)%'", null);*/
 
         Cursor cursor = myDataBase.rawQuery("SELECT I.* \n" +
                 "FROM magasin I\n" +
