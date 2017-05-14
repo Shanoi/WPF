@@ -104,12 +104,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Magasin> getAllArticles() {
+    public List<Magasin> getMagasins() {
 
         ArrayList<Magasin> magasins = new ArrayList<>();
 
-        Cursor cursor = myDataBase.rawQuery("SELECT *" +
-                "FROM magasin", null);
+        String subQuery = "(SELECT num_departement FROM departements WHERE num_region = 7)";
+
+        /*Cursor cursor = myDataBase.rawQuery("SELECT * " +
+                "FROM magasin WHERE codePostale LIKE '01%' OR codePostale LIKE '02%'", null);*/
+
+        /*Cursor cursor = myDataBase.rawQuery("SELECT * " +
+                "FROM magasin WHERE codePostale LIKE '(SELECT num_departement FROM departements WHERE num_region = 7)%'", null);*/
+
+        Cursor cursor = myDataBase.rawQuery("SELECT I.* \n" +
+                "FROM magasin I\n" +
+                "INNER JOIN (SELECT num_departement \n" +
+                "            FROM departements\n" +
+                "\t\t\tWHERE num_region = 7) E\n" +
+                "    ON I.codePostale LIKE E.num_departement || '%'", null);
 
         cursor.moveToFirst();
 

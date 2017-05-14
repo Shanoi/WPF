@@ -71,7 +71,7 @@ public class ShopListActivity extends AppCompatActivity {
 
             DB.openDataBase();
 
-            magasin = (ArrayList<Magasin>) DB.getAllArticles();
+            magasin = (ArrayList<Magasin>) DB.getMagasins();
 
             DB.close();
 

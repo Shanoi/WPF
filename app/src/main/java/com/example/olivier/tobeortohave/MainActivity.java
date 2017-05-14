@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
+import com.example.olivier.tobeortohave.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
 
