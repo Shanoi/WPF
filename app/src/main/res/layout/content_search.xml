@@ -31,8 +31,7 @@
                 android:id="@+id/txtRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="TextView" />
+                android:layout_weight="2" />
 
             <Spinner
                 android:id="@+id/regionChoice"
@@ -58,8 +57,7 @@
                 android:id="@+id/txtDpt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_weight="1" />
 
             <Spinner
                 android:id="@+id/dptChoice"

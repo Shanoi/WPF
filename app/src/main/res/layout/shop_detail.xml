@@ -9,29 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/shop_phone1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_phone_black_24dp" />
-
-            <ImageButton
-                android:id="@+id/btn_call"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/desc_btn_call_shop"
-                app:srcCompat="@drawable/ic_phone_black_24dp" />
-
-        </LinearLayout>
-
-
         <TextView
             android:id="@+id/shop_name"
             style="?android:attr/textAppearanceLarge"
@@ -46,15 +23,39 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/shop_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_phone_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/desc_btn_call_shop"
+                app:srcCompat="@drawable/ic_phone_black_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/shop_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableStart="@drawable/ic_store_black_24dp" />
 
             <TextView
                 android:id="@+id/shop_zipCode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -66,9 +67,9 @@
 
             <TextView
                 android:id="@+id/shop_email"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableStart="@drawable/ic_email_black_24dp" />
 
             <ImageButton
@@ -88,9 +89,9 @@
 
             <TextView
                 android:id="@+id/shop_webPage"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:drawableStart="@drawable/ic_link_black_24dp" />
 
             <ImageButton

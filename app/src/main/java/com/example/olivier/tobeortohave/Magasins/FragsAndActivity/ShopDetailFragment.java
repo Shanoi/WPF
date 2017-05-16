@@ -55,18 +55,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_NOM = "item_nom";
-
-    public static final String ARG_ITEM_ID = "item_id";
-
     public static final String ARG_SHOP = "magasin";
-
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private String mItem;
-
-    private int idShop;
 
     private Magasin shop;
 
@@ -118,16 +107,18 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.shop_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.shop_name)).setText(mItem);
-        }
+        ((TextView) rootView.findViewById(R.id.shop_name)).setText(shop.getNom());
+        ((TextView) rootView.findViewById(R.id.shop_phone)).setText(shop.getTelephone());
+        ((TextView) rootView.findViewById(R.id.shop_email)).setText(shop.getMail());
+        ((TextView) rootView.findViewById(R.id.shop_webPage)).setText(shop.getPageWeb());
+        ((TextView) rootView.findViewById(R.id.shop_address)).setText(shop.getAdresse());
+        ((TextView) rootView.findViewById(R.id.shop_zipCode)).setText(shop.getPostalCode());
 
         ((ImageButton) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String posted_by = "0641675381";
+                String posted_by = shop.getTelephone();
 
                 String uri = "tel:" + posted_by.trim();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -142,7 +133,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             public void onClick(View view) {
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "abc@gmail.com", null));
+                        "mailto", shop.getMail(), null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -154,7 +145,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             @Override
             public void onClick(View view) {
 
-                String url = "http://www.example.com";
+                String url = shop.getPageWeb();
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
