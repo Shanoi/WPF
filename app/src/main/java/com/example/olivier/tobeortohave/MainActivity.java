@@ -1,5 +1,6 @@
 package com.example.olivier.tobeortohave;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -93,7 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openStores(View view) {
 
+
+
         Intent myIntent = new Intent(MainActivity.this, ShopListActivity.class);
+
+        myIntent.putExtra(ShopListActivity.ARG_QUERY, "SELECT * FROM magasin");
 
         startActivity(myIntent);
 

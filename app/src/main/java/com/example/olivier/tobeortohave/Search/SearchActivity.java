@@ -1,5 +1,6 @@
 package com.example.olivier.tobeortohave.Search;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Spinner;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
 import com.example.olivier.tobeortohave.R;
 
 import java.io.IOException;
@@ -69,6 +71,12 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void openSearch(View view) {
+
+        Intent myIntent = new Intent(SearchActivity.this, ShopListActivity.class);
+
+        myIntent.putExtra(ShopListActivity.ARG_QUERY, "SELECT * FROM magasin");
+
+        startActivity(myIntent);
 
     }
 

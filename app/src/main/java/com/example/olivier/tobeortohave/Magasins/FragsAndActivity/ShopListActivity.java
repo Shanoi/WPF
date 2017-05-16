@@ -32,6 +32,10 @@ import java.util.List;
  */
 public class ShopListActivity extends AppCompatActivity {
 
+    public static final String ARG_QUERY = "query";
+
+    private String query;
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -46,6 +50,8 @@ public class ShopListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
+        query = getIntent().getExtras().getString(ARG_QUERY);
 
         View recyclerView = findViewById(R.id.shop_list);
         assert recyclerView != null;
@@ -71,7 +77,7 @@ public class ShopListActivity extends AppCompatActivity {
 
             DB.openDataBase();
 
-            magasin = (ArrayList<Magasin>) DB.getMagasins();
+            magasin = (ArrayList<Magasin>) DB.getMagasins(query);
 
             DB.close();
 
