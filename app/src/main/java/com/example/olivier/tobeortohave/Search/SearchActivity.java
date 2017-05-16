@@ -306,11 +306,7 @@ public class SearchActivity extends AppCompatActivity {
 
         }
 
-        System.out.println("KEY ----------------------- -" + keyWord.getText() + "-");
-
         if (!keyWord.getText().toString().equals("")) {
-
-            System.out.println("TRUE;");
 
             subQuery = "SELECT * " +
                     "FROM (SELECT *\n" +

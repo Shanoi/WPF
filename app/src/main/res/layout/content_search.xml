@@ -27,11 +27,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/txtRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2" />
+                android:layout_weight="2" /> -->
 
             <Spinner
                 android:id="@+id/regionChoice"
@@ -54,11 +54,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <!-- <TextView
                 android:id="@+id/txtDpt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1" /> -->
 
             <Spinner
                 android:id="@+id/dptChoice"
@@ -81,159 +81,159 @@
              android:layout_height="wrap_content"
              android:orientation="horizontal">
 
+             <!-- <TextView
+                  android:id="@+id/txtVille"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="2" /> -->
+
+              <Spinner
+                  android:id="@+id/villeChoice"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="2" />
+
+              <ImageButton
+                  android:id="@+id/btn_reset_ville"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:contentDescription="@string/reset_fields"
+                  android:onClick="resetVille"
+                  app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
+          </LinearLayout>
+
+         <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
              <TextView
-                 android:id="@+id/txtVille"
+                 android:id="@+id/txtCA"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:layout_weight="2" />
+                 android:layout_weight="1"
+                 android:text="TextView" />
 
-             <Spinner
-                 android:id="@+id/villeChoice"
+             <SeekBar
+                 android:id="@+id/seekBarCA"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_weight="1" />
 
-             <ImageButton
-                 android:id="@+id/btn_reset_ville"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:contentDescription="@string/reset_fields"
-                 android:onClick="resetVille"
-                 app:srcCompat="@drawable/ic_refresh_black_24dp" />
 
          </LinearLayout>
 
-        <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtCA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+             <TextView
+                 android:id="@+id/txtEmployees"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="TextView" />
 
-            <SeekBar
-                android:id="@+id/seekBarCA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtEmployees"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
-
-            <SeekBar
-                android:id="@+id/seekBarEmployees"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+             <SeekBar
+                 android:id="@+id/seekBarEmployees"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1" />
 
 
-        </LinearLayout>
+         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtMaintenance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+             <TextView
+                 android:id="@+id/txtMaintenance"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="TextView" />
 
-            <SeekBar
-                android:id="@+id/seekBarMaintenance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtProdRenv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
-
-            <SeekBar
-                android:id="@+id/seekBarProdRenv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+             <SeekBar
+                 android:id="@+id/seekBarMaintenance"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1" />
 
 
-        </LinearLayout>
+         </LinearLayout>
 
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="text" />
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Phone"
-            android:inputType="phone" />
+             <TextView
+                 android:id="@+id/txtProdRenv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="TextView" />
 
-        <EditText
-            android:id="@+id/addresse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="address"
-            android:inputType="textPostalAddress" />
+             <SeekBar
+                 android:id="@+id/seekBarProdRenv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/zipCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Zip Code"
-            android:inputType="text" />
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+         </LinearLayout>
 
-        <EditText
-            android:id="@+id/site"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Web site"
-            android:inputType="text" /> -->
+         <EditText
+             android:id="@+id/name"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="Name"
+             android:inputType="text" />
+
+         <EditText
+             android:id="@+id/phone"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="Phone"
+             android:inputType="phone" />
+
+         <EditText
+             android:id="@+id/addresse"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="address"
+             android:inputType="textPostalAddress" />
+
+         <EditText
+             android:id="@+id/zipCode"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="Zip Code"
+             android:inputType="text" />
+
+         <EditText
+             android:id="@+id/email"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="Email"
+             android:inputType="textEmailAddress" />
+
+         <EditText
+             android:id="@+id/site"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:ems="10"
+             android:hint="Web site"
+             android:inputType="text" /> -->
 
     </LinearLayout>
 

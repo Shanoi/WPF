@@ -1,6 +1,5 @@
 package com.example.olivier.tobeortohave;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
+import com.example.olivier.tobeortohave.Map.MapsActivity;
 import com.example.olivier.tobeortohave.Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
     public void openMap(View view) {
 
         Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
+
+        myIntent.putExtra(MapsActivity.ARG_QUERY, "SELECT * FROM magasin");
 
         startActivity(myIntent);
 

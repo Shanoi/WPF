@@ -3,11 +3,14 @@ package com.example.olivier.tobeortohave.Data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 /**
  * Created by Olivier on 26/04/2017.
  */
 
-public class Magasin implements Parcelable {
+public class Magasin implements Parcelable, ClusterItem {
 
     private int id;
     private String nom;
@@ -110,5 +113,10 @@ public class Magasin implements Parcelable {
         dest.writeString(telephone);
         dest.writeString(mail);
         dest.writeString(pageWeb);
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(latitude, longitude);
     }
 }
