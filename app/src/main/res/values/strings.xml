@@ -18,4 +18,7 @@
     <string name="launch_search">Launch search</string>
     <string name="reset_fields">Reset fields</string>
     <string name="choose_dpt">Choose departement</string>
+    <string name="choose_reg">Choose region</string>
+    <string name="choose_ville">Choose city</string>
+    <string name="key_word">Key Word</string>
 </resources>

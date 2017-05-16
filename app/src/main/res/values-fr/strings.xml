@@ -15,4 +15,7 @@
     <string name="reset_fields">Vider les champs de recherche</string>
     <string name="title_activity_search">Recherche</string>
     <string name="choose_dpt">Choisir le département</string>
+    <string name="choose_reg">Choisir la région</string>
+    <string name="choose_ville">Choisir la ville</string>
+    <string name="key_word">Mot Clef</string>
 </resources>

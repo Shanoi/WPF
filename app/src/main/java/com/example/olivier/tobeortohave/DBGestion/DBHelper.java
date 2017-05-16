@@ -116,6 +116,30 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor fetchRegion() {
+
+        Cursor mCursor = myDataBase.rawQuery("SELECT * FROM regions", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
+
+    public Cursor fetchVille() {
+
+        Cursor mCursor = myDataBase.rawQuery("SELECT DISTINCT Ville FROM magasin ORDER BY Ville", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+
+    }
+
     public List<Magasin> getMagasins(String query) {
 
         ArrayList<Magasin> magasins = new ArrayList<>();

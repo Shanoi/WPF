@@ -17,16 +17,16 @@ import java.util.List;
  * Created by Olivier on 14/05/2017.
  */
 
-public class AdapterSpinner extends ArrayAdapter<SpinnerItemDpt> {
+public class AdapterSpinnertTwoElements extends ArrayAdapter<SpinnerItemTwoElements> {
     private Context mContext;
-    private ArrayList<SpinnerItemDpt> listState;
-    private AdapterSpinner myAdapter;
+    private ArrayList<SpinnerItemTwoElements> listState;
+    private AdapterSpinnertTwoElements myAdapter;
     private boolean isFromView = false;
 
-    public AdapterSpinner(Context context, int resource, List<SpinnerItemDpt> objects) {
+    public AdapterSpinnertTwoElements(Context context, int resource, List<SpinnerItemTwoElements> objects) {
         super(context, resource, objects);
         this.mContext = context;
-        this.listState = (ArrayList<SpinnerItemDpt>) objects;
+        this.listState = (ArrayList<SpinnerItemTwoElements>) objects;
         this.myAdapter = this;
     }
 
@@ -59,7 +59,7 @@ public class AdapterSpinner extends ArrayAdapter<SpinnerItemDpt> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mTextView.setText(listState.get(position).getDpt());
+        holder.mTextView.setText(listState.get(position).getElement());
 
         // To check weather checked event fire from getview() or user input
         /*isFromView = true;
@@ -77,9 +77,9 @@ public class AdapterSpinner extends ArrayAdapter<SpinnerItemDpt> {
         holder.mCheckBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {       //Detect on which sensor we have tick or not the checkbox
                 CheckBox cb = (CheckBox) v;
-                SpinnerItemDpt spinnerItemDpt = (SpinnerItemDpt) cb.getTag();
+                SpinnerItemTwoElements spinnerItemTwoElements = (SpinnerItemTwoElements) cb.getTag();
 
-                spinnerItemDpt.setSelected(cb.isChecked());
+                spinnerItemTwoElements.setSelected(cb.isChecked());
 
                 /*for (int i = 0; i < Sensors.size(); i++) {
 
@@ -106,7 +106,7 @@ public class AdapterSpinner extends ArrayAdapter<SpinnerItemDpt> {
             }
         });*/
 
-        SpinnerItemDpt listItem = (SpinnerItemDpt) getItem(position);
+        SpinnerItemTwoElements listItem = (SpinnerItemTwoElements) getItem(position);
 
         holder.mCheckBox.setChecked(listItem.isSelected());
         holder.mCheckBox.setTag(listItem);

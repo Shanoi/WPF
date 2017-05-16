@@ -38,6 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/reset_fields"
+                    android:onClick="resetAll"
                     app:srcCompat="@drawable/ic_refresh_black_24dp" />
 
                 <ImageButton
