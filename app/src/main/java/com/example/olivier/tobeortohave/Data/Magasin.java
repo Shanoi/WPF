@@ -12,6 +12,7 @@ public class Magasin implements Parcelable {
     private int id;
     private String nom;
     private String adresse;
+    private String ville;
     private String postalCode;
     private long latitude;
     private long longitude;
@@ -19,11 +20,12 @@ public class Magasin implements Parcelable {
     private String mail;
     private String pageWeb;
 
-    public Magasin(int id, String nom, String adresse, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb) {
+    public Magasin(int id, String nom, String adresse, String ville, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb) {
 
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;
+        this.ville = ville;
         this.postalCode = postalCode;
         this.latitude = latitude;
         this.longitude = longitude;

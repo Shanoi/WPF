@@ -166,11 +166,12 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getLong(4),
+                    cursor.getString(4),
                     cursor.getLong(5),
-                    cursor.getString(6),
+                    cursor.getLong(6),
                     cursor.getString(7),
-                    cursor.getString(8)));
+                    cursor.getString(8),
+                    cursor.getString(9)));
 
             cursor.moveToNext();
 

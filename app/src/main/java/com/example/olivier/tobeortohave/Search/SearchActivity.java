@@ -159,7 +159,7 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(SearchActivity.this, ShopListActivity.class);
 
-        myIntent.putExtra(ShopListActivity.ARG_QUERY, "SELECT * FROM magasin");
+        myIntent.putExtra(ShopListActivity.ARG_QUERY, queryBuilder());
 
         startActivity(myIntent);
 
@@ -170,6 +170,8 @@ public class SearchActivity extends AppCompatActivity {
         resetDpts();
         resetRegions();
         resetVilles();
+
+        keyWord.setText("");
 
     }
 
@@ -221,5 +223,59 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    private String queryBuilder() {
 
+        /*Cursor cursor = myDataBase.rawQuery("SELECT I.* \n" +
+                "FROM magasin I\n" +
+                "INNER JOIN (SELECT num_departement \n" +
+                "            FROM departements\n" +
+                "\t\t\tWHERE num_region = 7) E\n" +
+                "    ON I.codePostale LIKE E.num_departement || '%'", null);*/
+
+        String query;
+
+        /*query = "SELECT * " +
+                "FROM magasin M " +
+                "INNER JOIN (SELECT num_departement \n" +
+                "            FROM departements\n" +
+                "\t\t\tWHERE num_region = 7) E\n" +
+                "    ON M.codePostale LIKE E.num_departement || '%'" +
+                "WHERE magasinName LIKE '%" + keyWord.getText() + "%' OR " +
+                "adresseMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                "Ville LIKE '%" + keyWord.getText() + "%' OR " +
+                "codePostale LIKE '%" + keyWord.getText() + "%' OR " +
+                "TelephoneMagasin '%" + keyWord.getText() + "%' OR " +
+                "mailMagasin '%" + keyWord.getText() + "%' OR " +
+                "pageWeb '%" + keyWord.getText() + "%'";*/
+
+        query = "SELECT * " +
+                "FROM (SELECT *\n" +
+                "FROM magasin M \n" +
+                "INNER JOIN (SELECT *\n" +
+                "            FROM (SELECT * \n" +
+                "\t\t\t\t\tFROM regions R\n" +
+                "\t\t\t\t\tINNER JOIN departements D\n" +
+                "\t\t\t\t\tWHERE R.num_region = D.num_region)) E\n" +
+                "                ON M.codePostale LIKE E.num_departement || '___'\n" +
+                "ORDER BY idMagasin) " +
+                "WHERE magasinName LIKE '%" + keyWord.getText() + "%' OR " +
+                "adresseMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                "Ville LIKE '%" + keyWord.getText() + "%' OR " +
+                "codePostale LIKE '%" + keyWord.getText() + "%' OR " +
+                "TelephoneMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                "mailMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                "pageWeb LIKE '%" + keyWord.getText() + "%' OR " +
+                "num_departement LIKE '%" + keyWord.getText() + "%' OR " +
+                "'nom:1' LIKE '%" + keyWord.getText() + "%' OR " +
+                "nom LIKE '%" + keyWord.getText() + "%'";
+
+        for (int i = 0; i < regions.size(); i++) {
+
+
+
+        }
+
+        return query;
+
+    }
 }
