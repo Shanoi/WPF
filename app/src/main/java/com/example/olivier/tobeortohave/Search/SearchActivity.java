@@ -232,7 +232,8 @@ public class SearchActivity extends AppCompatActivity {
                 "\t\t\tWHERE num_region = 7) E\n" +
                 "    ON I.codePostale LIKE E.num_departement || '%'", null);*/
 
-        String query;
+        String query = "";
+        String subQuery;
 
         /*query = "SELECT * " +
                 "FROM magasin M " +
@@ -248,7 +249,7 @@ public class SearchActivity extends AppCompatActivity {
                 "mailMagasin '%" + keyWord.getText() + "%' OR " +
                 "pageWeb '%" + keyWord.getText() + "%'";*/
 
-        query = "SELECT * " +
+        /*query = "SELECT * " +
                 "FROM (SELECT *\n" +
                 "FROM magasin M \n" +
                 "INNER JOIN (SELECT *\n" +
@@ -267,13 +268,151 @@ public class SearchActivity extends AppCompatActivity {
                 "pageWeb LIKE '%" + keyWord.getText() + "%' OR " +
                 "num_departement LIKE '%" + keyWord.getText() + "%' OR " +
                 "'nom:1' LIKE '%" + keyWord.getText() + "%' OR " +
-                "nom LIKE '%" + keyWord.getText() + "%'";
+                "nom LIKE '%" + keyWord.getText() + "%'";*/
+
+        ArrayList<String> reg = new ArrayList<>();
 
         for (int i = 0; i < regions.size(); i++) {
 
+            if (regions.get(i).isSelected()) {
 
+                reg.add(regions.get(i).getElement1());
+
+            }
 
         }
+
+        ArrayList<String> deps = new ArrayList<>();
+
+        for (int i = 0; i < dpts.size(); i++) {
+
+            if (dpts.get(i).isSelected()) {
+
+                deps.add(dpts.get(i).getElement1());
+
+            }
+
+        }
+
+        ArrayList<String> vils = new ArrayList<>();
+
+        for (int i = 0; i < villes.size(); i++) {
+
+            if (villes.get(i).isSelected()) {
+
+                vils.add(villes.get(i).getElement1());
+
+            }
+
+        }
+
+        System.out.println("KEY ----------------------- -" + keyWord.getText() + "-");
+
+        if (!keyWord.getText().toString().equals("")) {
+
+            System.out.println("TRUE;");
+
+            subQuery = "SELECT * " +
+                    "FROM (SELECT *\n" +
+                    "FROM magasin M \n" +
+                    "INNER JOIN (SELECT *\n" +
+                    "            FROM (SELECT * \n" +
+                    "\t\t\t\t\tFROM regions R\n" +
+                    "\t\t\t\t\tINNER JOIN departements D\n" +
+                    "\t\t\t\t\tWHERE R.num_region = D.num_region)) E\n" +
+                    "                ON M.codePostale LIKE E.num_departement || '___'\n" +
+                    "ORDER BY idMagasin) " +
+                    "WHERE magasinName LIKE '%" + keyWord.getText() + "%' OR " +
+                    "adresseMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                    "Ville LIKE '%" + keyWord.getText() + "%' OR " +
+                    "codePostale LIKE '%" + keyWord.getText() + "%' OR " +
+                    "TelephoneMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                    "mailMagasin LIKE '%" + keyWord.getText() + "%' OR " +
+                    "pageWeb LIKE '%" + keyWord.getText() + "%' OR " +
+                    "num_departement LIKE '%" + keyWord.getText() + "%' OR " +
+                    "'nom:1' LIKE '%" + keyWord.getText() + "%' OR " +
+                    "nom LIKE '%" + keyWord.getText() + "%'";
+
+
+        } else {
+
+            subQuery = "SELECT * " +
+                    "FROM magasin M \n" +
+                    "INNER JOIN (SELECT *\n" +
+                    "            FROM (SELECT * \n" +
+                    "\t\t\t\t\tFROM regions R\n" +
+                    "\t\t\t\t\tINNER JOIN departements D\n" +
+                    "\t\t\t\t\tWHERE R.num_region = D.num_region)) E\n" +
+                    "                ON M.codePostale LIKE E.num_departement || '___'\n" +
+                    "ORDER BY idMagasin";
+
+        }
+
+        if (!reg.isEmpty() | !deps.isEmpty() | !vils.isEmpty()) {
+
+            query = "SELECT * " +
+                    "FROM (" + subQuery + ")" +
+                    " WHERE ";
+
+        } else{
+
+            query = subQuery;
+
+        }
+
+        StringBuilder queryFill = new StringBuilder();
+
+        if (!reg.isEmpty()) {
+
+            queryFill.append("nom = ").append("'").append(reg.get(0)).append("'");
+
+            for (int i = 1; i < reg.size(); i++) {
+
+                queryFill.append(" OR nom = ").append("'").append(reg.get(i)).append("'");
+
+            }
+
+            if (!deps.isEmpty() | !vils.isEmpty()) {
+
+                queryFill.append(" OR ");
+
+            }
+
+        }
+
+        if (!deps.isEmpty()) {
+
+            queryFill.append("nom_departement = ").append("'").append(deps.get(0)).append("'");
+
+            for (int i = 1; i < deps.size(); i++) {
+
+                queryFill.append(" OR nom_departement = ").append("'").append(deps.get(i)).append("'");
+
+            }
+
+            if (!vils.isEmpty()) {
+
+                queryFill.append(" OR ");
+
+            }
+
+        }
+
+        if (!vils.isEmpty()) {
+
+            queryFill.append("Ville = ").append("'").append(vils.get(0)).append("'");
+
+            for (int i = 1; i < vils.size(); i++) {
+
+                queryFill.append(" OR Ville = ").append("'").append(vils.get(0)).append("'");
+
+            }
+
+        }
+
+        query += queryFill.toString();
+
+        System.out.println(query);
 
         return query;
 

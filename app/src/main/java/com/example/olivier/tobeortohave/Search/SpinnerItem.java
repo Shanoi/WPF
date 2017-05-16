@@ -14,10 +14,16 @@ public class SpinnerItem {
         this.selected = false;
     }
 
-    public String getElement() {
+    @Override
+    public String toString() {
         return element1;
     }
 
+    public String getElement1(){
+
+        return element1;
+
+    }
 
     public boolean isSelected() {
         return selected;

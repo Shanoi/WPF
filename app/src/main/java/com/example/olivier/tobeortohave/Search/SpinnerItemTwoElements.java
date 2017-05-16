@@ -14,7 +14,7 @@ public class SpinnerItemTwoElements extends SpinnerItem {
     }
 
     @Override
-    public String getElement() {
+    public String toString() {
         return element1 + " (" + element2 + ")";
     }
 

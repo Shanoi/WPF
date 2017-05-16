@@ -59,7 +59,7 @@ public class AdapterSpinnerOneElement extends ArrayAdapter<SpinnerItem> {
             holder = (AdapterSpinnerOneElement.ViewHolder) convertView.getTag();
         }
 
-        holder.mTextView.setText(listState.get(position).getElement());
+        holder.mTextView.setText(listState.get(position).toString());
 
         // To check weather checked event fire from getview() or user input
         /*isFromView = true;

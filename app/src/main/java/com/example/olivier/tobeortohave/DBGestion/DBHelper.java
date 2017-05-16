@@ -142,6 +142,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Magasin> getMagasins(String query) {
 
+        System.out.println("QUERY FROM DB : " + query);
+
         ArrayList<Magasin> magasins = new ArrayList<>();
 
         String subQuery = "(SELECT num_departement FROM departements WHERE num_region = 7)";
