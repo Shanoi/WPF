@@ -326,8 +326,8 @@ public class SearchActivity extends AppCompatActivity {
                     "mailMagasin LIKE '%" + keyWord.getText() + "%' OR " +
                     "pageWeb LIKE '%" + keyWord.getText() + "%' OR " +
                     "num_departement LIKE '%" + keyWord.getText() + "%' OR " +
-                    "'nom:1' LIKE '%" + keyWord.getText() + "%' OR " +
-                    "nom LIKE '%" + keyWord.getText() + "%'";
+                    "nom_departement LIKE '%" + keyWord.getText() + "%' OR " +
+                    "nom_region LIKE '%" + keyWord.getText() + "%'";
 
 
         } else {
@@ -360,11 +360,11 @@ public class SearchActivity extends AppCompatActivity {
 
         if (!reg.isEmpty()) {
 
-            queryFill.append("nom = ").append("'").append(reg.get(0)).append("'");
+            queryFill.append("nom_region = ").append("'").append(reg.get(0)).append("'");
 
             for (int i = 1; i < reg.size(); i++) {
 
-                queryFill.append(" OR nom = ").append("'").append(reg.get(i)).append("'");
+                queryFill.append(" OR nom_region = ").append("'").append(reg.get(i)).append("'");
 
             }
 
