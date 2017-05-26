@@ -51,11 +51,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity" />
         </activity>
-
         <activity
             android:name=".Search.SearchActivity"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Stats.StatsActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
 import com.example.olivier.tobeortohave.Map.MapsActivity;
 import com.example.olivier.tobeortohave.Search.SearchActivity;
+import com.example.olivier.tobeortohave.Stats.StatsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void openStats(View view) {
 
-        System.out.println("OPENSTATSm");
+        Intent myIntent = new Intent(MainActivity.this, StatsActivity.class);
+
+        startActivity(myIntent);
 
     }
 

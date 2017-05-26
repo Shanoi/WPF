@@ -113,6 +113,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         ((TextView) rootView.findViewById(R.id.shop_webPage)).setText(shop.getPageWeb());
         ((TextView) rootView.findViewById(R.id.shop_address)).setText(shop.getAdresse());
         ((TextView) rootView.findViewById(R.id.shop_zipCode)).setText(shop.getPostalCode());
+        ((TextView) rootView.findViewById(R.id.shop_city)).setText(shop.getVille());
 
         ((ImageButton) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -107,7 +107,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double lng = magasin.get(i).getLongitude();
 
             tmpL = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(tmpL).title(magasin.get(i).getNom()));
+            mMap.addMarker(new MarkerOptions().position(tmpL)
+                    .title(magasin.get(i).getNom())
+                    .snippet(magasin.get(i).getAdresse() + "\n" + magasin.get(i).getTelephone()));
 
         }
 

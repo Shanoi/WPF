@@ -41,6 +41,7 @@ public class Magasin implements Parcelable, ClusterItem {
         id = in.readInt();
         nom = in.readString();
         adresse = in.readString();
+        ville = in.readString();
         postalCode = in.readString();
         latitude = in.readLong();
         longitude = in.readLong();
@@ -97,6 +98,10 @@ public class Magasin implements Parcelable, ClusterItem {
         return pageWeb;
     }
 
+    public String getVille() {
+        return ville;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -107,6 +112,7 @@ public class Magasin implements Parcelable, ClusterItem {
         dest.writeInt(id);
         dest.writeString(nom);
         dest.writeString(adresse);
+        dest.writeString(ville);
         dest.writeString(postalCode);
         dest.writeLong(latitude);
         dest.writeLong(longitude);
