@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Data.Magasin;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailActivity;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailFragment;
 import com.example.olivier.tobeortohave.R;
 
 import com.example.olivier.tobeortohave.Map.FragAndAct.dummy.DummyContent;
@@ -49,7 +51,7 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
         ClusterManager.OnClusterClickListener<Magasin>,
         ClusterManager.OnClusterInfoWindowClickListener<Magasin>,
         ClusterManager.OnClusterItemClickListener<Magasin>,
-        ClusterManager.OnClusterItemInfoWindowClickListener<Magasin>{
+        ClusterManager.OnClusterItemInfoWindowClickListener<Magasin> {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -102,6 +104,8 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         mClusterManager = new ClusterManager<>(this, mMap);
 
+        mClusterManager.setRenderer(new Renderer(this, mMap, mClusterManager));
+
         mMap.setOnCameraIdleListener(mClusterManager);
         mMap.setOnMarkerClickListener(mClusterManager);
         mMap.setOnInfoWindowClickListener(mClusterManager);
@@ -115,47 +119,14 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         for (int i = 0; i < magasin.size(); i++) {
 
-            /*double lat = ALS.get(i).getLat();
-            double lng = ALS.get(i).getLng();*/
-
             Magasin offsetItem = magasin.get(i);
             mClusterManager.addItem(offsetItem);
             builder.include(offsetItem.getPosition());
-
-            /*mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener(){
-
-                @Override
-                public boolean onClusterItemClick(ClusterItem clusterItem) {
-
-                    final Magasin station = ((Magasin) clusterItem);
-
-                    System.out.println("CLICK");
-
-                    return true;
-
-                }
-
-            });*/
-
-            //double lat = magasin.get(i).getLatitude();
-           // double lng = magasin.get(i).getLongitude();
-
-           /* tmpL = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(tmpL)
-                    .title(magasin.get(i).getNom())
-                    .snippet(magasin.get(i).getAdresse() + "\n" + magasin.get(i).getTelephone()));*/
 
         }
 
         LatLngBounds bounds = builder.build();
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
-
-
-        // Add a marker in Sydney and move the camera
-        /*LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
-
 
     }
 
@@ -184,7 +155,21 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         System.out.println("Click Cluster");
 
-        return true;
+        if (mTwoPane) {
+            Bundle arguments = new Bundle();
+                        /*arguments.putString(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
+                        arguments.putInt(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
+            arguments.putParcelable(ShopDetailFragment.ARG_SHOP, magasin);
+            ShopDetailFragment fragment = new ShopDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.map_detail_container, fragment)
+                    .commit();
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -200,6 +185,21 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onClusterItemInfoWindowClick(Magasin magasin) {
+
+        if (!mTwoPane) {
+
+            Intent intent = new Intent(this, ShopDetailActivity.class);
+                        /*intent.putExtra(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
+                        intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
+            intent.putExtra(ShopDetailFragment.ARG_SHOP, magasin);
+
+            startActivity(intent);
+        }
+
+        System.out.println("INFO : ");
+        System.out.println(magasin.getNom());
+        System.out.println(magasin.getTelephone());
+        System.out.println(magasin.getVille());
 
     }
 }
