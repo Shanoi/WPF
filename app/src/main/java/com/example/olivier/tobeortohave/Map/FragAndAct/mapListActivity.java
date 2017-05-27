@@ -1,14 +1,25 @@
-package com.example.olivier.tobeortohave.Map;
+package com.example.olivier.tobeortohave.Map.FragAndAct;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Data.Magasin;
-import com.example.olivier.tobeortohave.MainActivity;
 import com.example.olivier.tobeortohave.R;
-import com.example.olivier.tobeortohave.Search.SearchActivity;
+
+import com.example.olivier.tobeortohave.Map.FragAndAct.dummy.DummyContent;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,12 +35,27 @@ import com.google.maps.android.clustering.ClusterManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+/**
+ * An activity representing a list of maps. This activity
+ * has different presentations for handset and tablet-size devices. On
+ * handsets, the activity presents a list of items, which when touched,
+ * lead to a {@link mapDetailActivity} representing
+ * item details. On tablets, the activity presents the list of items and
+ * item details side-by-side using two vertical panes.
+ */
+public class mapListActivity extends FragmentActivity implements OnMapReadyCallback,
         ClusterManager.OnClusterClickListener<Magasin>,
         ClusterManager.OnClusterInfoWindowClickListener<Magasin>,
         ClusterManager.OnClusterItemClickListener<Magasin>,
-        ClusterManager.OnClusterItemInfoWindowClickListener<Magasin> {
+        ClusterManager.OnClusterItemInfoWindowClickListener<Magasin>{
+
+    /**
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+     * device.
+     */
+    private boolean mTwoPane;
 
     private GoogleMap mMap;
 
@@ -42,38 +68,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        setContentView(R.layout.activity_map_list);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         fetchShop(getIntent().getExtras().getString(ARG_QUERY));
 
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());*/
+
+       /* View recyclerView = findViewById(R.id.map_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);*/
+
+        if (findViewById(R.id.map_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
 
-
+        ClusterManager<Magasin> mClusterManager;
 
         mClusterManager = new ClusterManager<>(this, mMap);
 
@@ -86,10 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-
-        LatLng tmpL;
-
-        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < magasin.size(); i++) {
 
@@ -98,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Magasin offsetItem = magasin.get(i);
             mClusterManager.addItem(offsetItem);
-            //builder.include(offsetItem.getPosition());
+            builder.include(offsetItem.getPosition());
 
             /*mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener(){
 
@@ -107,20 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     final Magasin station = ((Magasin) clusterItem);
 
-                    new AlertDialog.Builder(MapsActivity.this)
-                            .setTitle(station.getName())
-                            .setMessage(station.getAddress())
-                            .setCancelable(false)
-                            .setPositiveButton("Aller", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent myIntent = new Intent(MapsActivity.this, MapsActivity_Itineraire.class);
-                                    myIntent.putExtra("Station", station );
-                                    startActivity(myIntent);
-                                }
-                            })
-                            .setNegativeButton("Fermer", null)
-                            .create().show();
+                    System.out.println("CLICK");
 
                     return true;
 
@@ -128,18 +137,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             });*/
 
-            double lat = magasin.get(i).getLatitude();
-            double lng = magasin.get(i).getLongitude();
+            //double lat = magasin.get(i).getLatitude();
+           // double lng = magasin.get(i).getLongitude();
 
-            tmpL = new LatLng(lat, lng);
-            /*mMap.addMarker(new MarkerOptions().position(tmpL)
+           /* tmpL = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(tmpL)
                     .title(magasin.get(i).getNom())
                     .snippet(magasin.get(i).getAdresse() + "\n" + magasin.get(i).getTelephone()));*/
 
         }
 
-        //LatLngBounds bounds = builder.build();
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
 
 
         // Add a marker in Sydney and move the camera
@@ -147,11 +156,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
 
-        mClusterManager.cluster();
 
     }
 
-    private void fetchShop(String query){
+    private void fetchShop(String query) {
 
         DBHelper DB = new DBHelper(this);
 
@@ -173,10 +181,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onClusterItemClick(Magasin magasin) {
-
-        Intent myIntent = new Intent(MapsActivity.this, SearchActivity.class);
-
-        startActivity(myIntent);
 
         System.out.println("Click Cluster");
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
+import com.example.olivier.tobeortohave.Map.FragAndAct.mapListActivity;
 import com.example.olivier.tobeortohave.Map.MapsActivity;
 import com.example.olivier.tobeortohave.Search.SearchActivity;
 import com.example.olivier.tobeortohave.Stats.StatsActivity;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openMap(View view) {
 
-        Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, mapListActivity.class);
 
         myIntent.putExtra(MapsActivity.ARG_QUERY, "SELECT * FROM magasin");
 

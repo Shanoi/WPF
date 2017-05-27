@@ -21,4 +21,6 @@
     <string name="choose_reg">Choose region</string>
     <string name="choose_ville">Choose city</string>
     <string name="key_word">Key Word</string>
+    <string name="title_map_list">maps</string>
+    <string name="title_map_detail">map Detail</string>
 </resources>
