@@ -30,7 +30,7 @@
                 android:drawableStart="@drawable/ic_phone_black_24dp" />
 
             <ImageButton
-                android:id="@+id/btn_call"
+                android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/desc_btn_call_shop"

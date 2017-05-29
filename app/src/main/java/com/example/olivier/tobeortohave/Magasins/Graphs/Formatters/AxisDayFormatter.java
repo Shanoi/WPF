@@ -25,7 +25,11 @@ public class AxisDayFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        if (value > 1712){
+        //System.out.println(chart.getData().getDataSets().get(0).getEntryForIndex((int) value - 1706).getData().toString());
+
+        //return chart.getData().getDataSets().get(0).getEntryForIndex((int) value - 1706).getData().toString();
+
+        if (value > 1712) {
 
             value += 88;
 

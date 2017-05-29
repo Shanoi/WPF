@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
+import com.example.olivier.tobeortohave.Map.FragAndAct.mapListActivity;
 import com.example.olivier.tobeortohave.R;
 
 import java.io.IOException;
@@ -158,6 +159,16 @@ public class SearchActivity extends AppCompatActivity {
     public void openSearch(View view) {
 
         Intent myIntent = new Intent(SearchActivity.this, ShopListActivity.class);
+
+        myIntent.putExtra(ShopListActivity.ARG_QUERY, queryBuilder());
+
+        startActivity(myIntent);
+
+    }
+
+    public void openMap(View view) {
+
+        Intent myIntent = new Intent(SearchActivity.this, mapListActivity.class);
 
         myIntent.putExtra(ShopListActivity.ARG_QUERY, queryBuilder());
 

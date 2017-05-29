@@ -12,6 +12,10 @@
         android:orientation="vertical">
 
 
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/caChart"
             android:layout_width="match_parent"

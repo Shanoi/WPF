@@ -1,49 +1,31 @@
 package com.example.olivier.tobeortohave.Map.FragAndAct;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Data.Magasin;
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailActivity;
 import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopDetailFragment;
 import com.example.olivier.tobeortohave.R;
-
-import com.example.olivier.tobeortohave.Map.FragAndAct.dummy.DummyContent;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
-import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An activity representing a list of maps. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link mapDetailActivity} representing
+ * lead to a {@link ShopDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
@@ -78,13 +60,7 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         fetchShop(getIntent().getExtras().getString(ARG_QUERY));
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());*/
-
-       /* View recyclerView = findViewById(R.id.map_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);*/
+        System.out.println("Extra : " + getIntent().getExtras().getString(ARG_QUERY));
 
         if (findViewById(R.id.map_detail_container) != null) {
             // The detail container view will be present only in the
@@ -100,8 +76,6 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         mMap = googleMap;
 
-        ClusterManager<Magasin> mClusterManager;
-
         mClusterManager = new ClusterManager<>(this, mMap);
 
         mClusterManager.setRenderer(new Renderer(this, mMap, mClusterManager));
@@ -115,18 +89,19 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (int i = 0; i < magasin.size(); i++) {
 
             Magasin offsetItem = magasin.get(i);
             mClusterManager.addItem(offsetItem);
-            builder.include(offsetItem.getPosition());
+            //builder.include(offsetItem.getPosition());
 
         }
 
-        LatLngBounds bounds = builder.build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
+        //LatLngBounds bounds = builder.build();
+
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
 
     }
 
@@ -152,8 +127,6 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public boolean onClusterItemClick(Magasin magasin) {
-
-        System.out.println("Click Cluster");
 
         if (mTwoPane) {
             Bundle arguments = new Bundle();
@@ -195,11 +168,6 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
             startActivity(intent);
         }
-
-        System.out.println("INFO : ");
-        System.out.println(magasin.getNom());
-        System.out.println(magasin.getTelephone());
-        System.out.println(magasin.getVille());
 
     }
 }
