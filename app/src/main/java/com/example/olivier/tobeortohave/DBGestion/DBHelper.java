@@ -92,6 +92,20 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
+    public Cursor fetchStat(){
+
+        Cursor mCursor = myDataBase.rawQuery("SELECT *\n" +
+                "FROM (SELECT * FROM Informations NATURAL JOIN magasin WHERE Informations.idMagasin = 2 OR Informations.idMagasin = 1)\n" +
+                "WHERE date LIKE '%05/18'", null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
+    }
+
+
     public Cursor fetchData(int id) {
 
         Cursor mCursor = myDataBase.rawQuery("SELECT * FROM Informations WHERE idMagasin = " + id, null);
