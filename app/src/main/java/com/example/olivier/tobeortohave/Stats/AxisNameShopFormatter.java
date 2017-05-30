@@ -19,9 +19,6 @@ public class AxisNameShopFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        System.out.println("VALUE : " + value);
-        System.out.println(chart.getData().getDataSets().get(0).getXMax());
-
         return chart.getData().getDataSets().get(0).getEntryForIndex((int) value).getData().toString();
 
     }

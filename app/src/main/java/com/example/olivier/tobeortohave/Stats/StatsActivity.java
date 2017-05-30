@@ -1,8 +1,17 @@
 package com.example.olivier.tobeortohave.Stats;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisCurrencyFormatter;
@@ -34,10 +43,21 @@ import java.util.Date;
 
 public class StatsActivity extends Activity implements OnChartValueSelectedListener {
 
+    private int year, month, day;
+
+    private DatePicker datePicker;
+
+    private TextView setDate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+
+        //DatePicker datePicker = (DatePicker) findViewById(R.id.date_picker);
+
+        setDate = (TextView) findViewById(R.id.date_time_set);
 
         BarChart caChart = (BarChart) findViewById(R.id.caChart);
 
@@ -204,6 +224,53 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
         data.setBarWidth(0.9f);
 
         barChart.setData(data);
+
+    }
+
+    public void onClick(View view) {
+
+        final View dialogView = View.inflate(this, R.layout.dialog_date_picker, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        alertDialog.setView(dialogView);
+        alertDialog.setTitle("Choose Date");
+
+        final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+
+        datePicker.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                setDate.setText(datePicker.getMonth() + "/" + datePicker.getYear());
+
+                //System.out.println("OK : " + datePicker.);
+
+            }
+        });
+
+        //On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"Annuler", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //Lorsque l'on cliquera sur annuler on quittera l'application
+                //finish();
+
+                alertDialog.dismiss();
+
+            } });
+
+        /*dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+
+                System.out.println("CLICK");
+
+                alertDialog.dismiss();
+            }
+        });*/
+
+        alertDialog.show();
 
     }
 

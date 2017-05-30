@@ -12,10 +12,13 @@
         android:orientation="vertical">
 
 
-        <com.github.mikephil.charting.charts.HorizontalBarChart
-            android:id="@+id/caChart_H"
+        <Button
+            android:id="@+id/date_time_set"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="Date" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/caChart"
