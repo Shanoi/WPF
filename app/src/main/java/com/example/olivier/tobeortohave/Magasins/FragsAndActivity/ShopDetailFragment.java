@@ -113,7 +113,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         ((TextView) rootView.findViewById(R.id.shop_zipCode)).setText(shop.getPostalCode());
         ((TextView) rootView.findViewById(R.id.shop_city)).setText(shop.getVille());
 
-        ((ImageButton) rootView.findViewById(R.id.btn_search)).setOnClickListener(new View.OnClickListener() {
+        ((ImageButton) rootView.findViewById(R.id.btn_call)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -148,6 +148,40 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+            }
+        });
+
+        final ImageButton selButton = (ImageButton) rootView.findViewById(R.id.sel_button);
+
+        if (shop.isSelected()) {
+
+            selButton.setImageResource(R.drawable.ic_star_black_24dp);
+
+        } else {
+
+            selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+
+        }
+
+        selButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (shop.isSelected()) {
+
+                    selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    setSel(shop.getId(), 0);
+
+                } else {
+
+                    selButton.setImageResource(R.drawable.ic_star_black_24dp);
+                    setSel(shop.getId(), 1);
+
+                }
+
+
+                shop.setSelected(!shop.isSelected());
+
             }
         });
 
@@ -410,6 +444,27 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         data.setBarWidth(0.9f);
 
         barChart.setData(data);
+
+    }
+
+    private void setSel(int id, int sel) {
+
+        DBHelper DB = new DBHelper(this.getContext());
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            DB.setSel(id, sel);
+
+            DB.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

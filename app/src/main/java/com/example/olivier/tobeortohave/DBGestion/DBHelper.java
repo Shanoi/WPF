@@ -1,5 +1,6 @@
 package com.example.olivier.tobeortohave.DBGestion;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void openDataBase() throws SQLException, IOException {
         //Open the database
         String myPath = myContext.getDatabasePath(DB_NAME).getAbsolutePath();
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public void createDataBase() throws IOException {
@@ -90,6 +91,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    public void setSel(int id, int sel){
+
+        ContentValues cv = new ContentValues();
+        cv.put("selection",sel);
+
+        myDataBase.update("magasin", cv, "idMagasin="+id, null);
+
+        //myDataBase.
+
+
     }
 
     public Cursor fetchStat(){

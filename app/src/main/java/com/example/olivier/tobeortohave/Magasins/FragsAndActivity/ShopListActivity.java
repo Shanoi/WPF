@@ -160,19 +160,16 @@ public class ShopListActivity extends AppCompatActivity {
 
                     if (holder.mItem.isSelected()) {
 
-                        System.out.println("TRUE");
-
                         holder.selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+                        setSel(holder.mItem.getId(), 0);
 
 
                     } else {
 
-                        System.out.println("FALSE");
-
                         holder.selButton.setImageResource(R.drawable.ic_star_black_24dp);
+                        setSel(holder.mItem.getId(), 1);
 
                     }
-
 
                     holder.mItem.setSelected(!holder.mItem.isSelected());
 
@@ -186,6 +183,26 @@ public class ShopListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
+        private void setSel(int id, int sel) {
+
+            DBHelper DB = new DBHelper(ShopListActivity.this);
+
+            try {
+                DB.createDataBase();
+
+                DB.openDataBase();
+
+                DB.setSel(id, sel);
+
+                DB.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
 
     }
 }
