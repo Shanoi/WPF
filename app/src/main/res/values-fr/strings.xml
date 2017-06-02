@@ -18,4 +18,5 @@
     <string name="choose_reg">Choisir la région</string>
     <string name="choose_ville">Choisir la ville</string>
     <string name="key_word">Mot Clef</string>
+    <string name="select_shops">Choisir magasins</string>
 </resources>

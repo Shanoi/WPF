@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,10 +15,12 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.DBGestion.DBHelper;
+import com.example.olivier.tobeortohave.Magasins.FragsAndActivity.ShopListActivity;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisCurrencyFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisDayFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisNumberFormatter;
 import com.example.olivier.tobeortohave.Magasins.Graphs.Formatters.AxisPeopleFormatter;
+import com.example.olivier.tobeortohave.MainActivity;
 import com.example.olivier.tobeortohave.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -40,15 +43,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class StatsActivity extends Activity implements OnChartValueSelectedListener {
-
-    private int year, month, day;
 
     private DatePicker datePicker;
 
     private TextView setDate;
 
+    private String month;
+
+    private String year;
+
+    private BarChart caChart;
+
+    private BarChart employeesChart;
+
+    private BarChart maintenanceChart;
+
+    private BarChart prodrenvChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +72,19 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
 
         setDate = (TextView) findViewById(R.id.date_time_set);
 
-        BarChart caChart = (BarChart) findViewById(R.id.caChart);
+        caChart = (BarChart) findViewById(R.id.caChart);
 
         caChart.setOnChartValueSelectedListener(this);
 
-        BarChart employeesChart = (BarChart) findViewById(R.id.employeesChart);
+        employeesChart = (BarChart) findViewById(R.id.employeesChart);
 
         employeesChart.setOnChartValueSelectedListener(this);
 
-        BarChart maintenanceChart = (BarChart) findViewById(R.id.maintenanceChart);
+        maintenanceChart = (BarChart) findViewById(R.id.maintenanceChart);
 
         maintenanceChart.setOnChartValueSelectedListener(this);
 
-        BarChart prodrenvChart = (BarChart) findViewById(R.id.prodrenvChart);
+        prodrenvChart = (BarChart) findViewById(R.id.prodrenvChart);
 
         prodrenvChart.setOnChartValueSelectedListener(this);
 
@@ -80,7 +93,17 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
         generateDataChart(employeesChart, new AxisPeopleFormatter());
         generateDataChart(prodrenvChart, new AxisNumberFormatter());
 
-        ArrayList<ArrayList<BarEntry>> barEntries = fetchData(4);
+        Date d = new Date();
+
+        SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+
+        month = dateFormatMonth.format(d);
+        year = dateFormatYear.format(d);
+
+        ArrayList<ArrayList<BarEntry>> barEntries = fetchData(month + "/" + year);
+
+        setDate.setText(month + "/" + year);
 
         setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
         setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
@@ -90,7 +113,25 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
 
     }
 
-    private ArrayList<ArrayList<BarEntry>> fetchData(int idShop) {
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        ArrayList<ArrayList<BarEntry>> barEntries = fetchData(month + "/" + year);
+
+        setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
+        setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
+        setDatatoChart(employeesChart, barEntries.get(1), getString(R.string.nbEmployés));
+        setDatatoChart(prodrenvChart, barEntries.get(3), getString(R.string.nbProdRenv));
+
+        caChart.invalidate();
+        maintenanceChart.invalidate();
+        employeesChart.invalidate();
+        prodrenvChart.invalidate();
+
+    }
+
+    private ArrayList<ArrayList<BarEntry>> fetchData(String date) {
 
         int cpt = 0;
 
@@ -108,7 +149,7 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
 
             DB.openDataBase();
 
-            Cursor cursor = DB.fetchStat();
+            Cursor cursor = DB.fetchStat(date);
 
 
             while (!cursor.isAfterLast()) {
@@ -227,6 +268,16 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
 
     }
 
+    public void onChoose(View view) {
+
+        Intent myIntent = new Intent(StatsActivity.this, ShopListActivity.class);
+
+        myIntent.putExtra(ShopListActivity.ARG_QUERY, "SELECT * FROM magasin");
+
+        startActivity(myIntent);
+
+    }
+
     public void onClick(View view) {
 
         final View dialogView = View.inflate(this, R.layout.dialog_date_picker, null);
@@ -237,12 +288,41 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
 
         final DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
 
+        datePicker.updateDate(Integer.parseInt(year), Integer.parseInt(month) - 1, 1);
+
         datePicker.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
 
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                setDate.setText(datePicker.getMonth() + "/" + datePicker.getYear());
+                int monTmp = datePicker.getMonth() + 1;
+
+                if (monTmp < 10) {
+
+                    month = "0" + monTmp;
+                    year = Integer.toString(datePicker.getYear());
+
+
+                } else {
+
+                    month = Integer.toString(monTmp);
+                    year = Integer.toString(datePicker.getYear());
+
+                }
+
+                setDate.setText(month + "/" + year);
+
+                ArrayList<ArrayList<BarEntry>> barEntries = fetchData(month + "/" + year);
+
+                setDatatoChart(caChart, barEntries.get(0), getString(R.string.CA));
+                setDatatoChart(maintenanceChart, barEntries.get(2), getString(R.string.coutMaintenance));
+                setDatatoChart(employeesChart, barEntries.get(1), getString(R.string.nbEmployés));
+                setDatatoChart(prodrenvChart, barEntries.get(3), getString(R.string.nbProdRenv));
+
+                caChart.invalidate();
+                maintenanceChart.invalidate();
+                employeesChart.invalidate();
+                prodrenvChart.invalidate();
 
                 //System.out.println("OK : " + datePicker.);
 
@@ -250,25 +330,14 @@ public class StatsActivity extends Activity implements OnChartValueSelectedListe
         });
 
         //On crée un bouton "Annuler" à notre AlertDialog et on lui affecte un évènement
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"Annuler", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 //Lorsque l'on cliquera sur annuler on quittera l'application
-                //finish();
 
                 alertDialog.dismiss();
 
-            } });
-
-        /*dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
-
-                System.out.println("CLICK");
-
-                alertDialog.dismiss();
             }
-        });*/
+        });
 
         alertDialog.show();
 

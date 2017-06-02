@@ -23,4 +23,5 @@
     <string name="key_word">Key Word</string>
     <string name="title_map_list">maps</string>
     <string name="title_map_detail">map Detail</string>
+    <string name="select_shops">Select shops</string>
 </resources>
