@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,11 +31,17 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ShopListActivity extends AppCompatActivity {
+public class ShopListActivity extends AppCompatActivity implements ShopDetailFragment.NotifySel {
 
     public static final String ARG_QUERY = "query";
 
     private String query;
+
+    private View recyclerView;
+
+    private SimpleItemRecyclerViewAdapter adapter;
+
+    private ArrayList<Magasin> magasin;
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -53,7 +60,7 @@ public class ShopListActivity extends AppCompatActivity {
 
         query = getIntent().getExtras().getString(ARG_QUERY);
 
-        View recyclerView = findViewById(R.id.shop_list);
+        recyclerView = findViewById(R.id.shop_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
@@ -66,9 +73,67 @@ public class ShopListActivity extends AppCompatActivity {
         }
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    public void onReset(View view) {
 
-        ArrayList<Magasin> magasin;
+        resetSel();
+
+        DBHelper DB = new DBHelper(this);
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            magasin = (ArrayList<Magasin>) DB.getMagasins(query);
+
+            DB.close();
+
+            adapter = new SimpleItemRecyclerViewAdapter(magasin);
+
+            ((RecyclerView) recyclerView).setAdapter(adapter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (mTwoPane) {
+
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("detail");
+
+            ((ShopDetailFragment) fragment).onRefresh();
+
+        }
+
+        //adapter.notifyDataSetChanged();
+
+        //setupRecyclerView((RecyclerView) recyclerView);
+
+    }
+
+    private void resetSel() {
+
+        DBHelper DB = new DBHelper(ShopListActivity.this);
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            DB.resetSel();
+
+            DB.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
 
         DBHelper DB = new DBHelper(this);
 
@@ -87,7 +152,35 @@ public class ShopListActivity extends AppCompatActivity {
                     mLayoutManager.getOrientation());
             recyclerView.addItemDecoration(mDividerItemDecoration);
 
-            recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(magasin));
+            adapter = new SimpleItemRecyclerViewAdapter(magasin);
+
+            recyclerView.setAdapter(adapter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void notifySel() {
+
+        DBHelper DB = new DBHelper(this);
+
+        try {
+            DB.createDataBase();
+
+            DB.openDataBase();
+
+            magasin = (ArrayList<Magasin>) DB.getMagasins(query);
+
+            DB.close();
+
+            adapter = new SimpleItemRecyclerViewAdapter(magasin);
+
+            ((RecyclerView) recyclerView).setAdapter(adapter);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,7 +233,7 @@ public class ShopListActivity extends AppCompatActivity {
                         ShopDetailFragment fragment = new ShopDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.shop_detail_container, fragment)
+                                .replace(R.id.shop_detail_container, fragment, "detail")
                                 .commit();
                     } else {
                         Context context = v.getContext();
@@ -168,6 +261,14 @@ public class ShopListActivity extends AppCompatActivity {
 
                         holder.selButton.setImageResource(R.drawable.ic_star_black_24dp);
                         setSel(holder.mItem.getId(), 1);
+
+                    }
+
+                    if (mTwoPane) {
+
+                        Fragment fragment = getSupportFragmentManager().findFragmentByTag("detail");
+
+                        ((ShopDetailFragment) fragment).onRefresh();
 
                     }
 

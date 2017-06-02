@@ -19,4 +19,5 @@
     <string name="choose_ville">Choisir la ville</string>
     <string name="key_word">Mot Clef</string>
     <string name="select_shops">Choisir magasins</string>
+    <string name="reset_favoris">Reset les magasins sélectionnés</string>
 </resources>

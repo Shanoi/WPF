@@ -1,6 +1,7 @@
 package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -57,11 +58,33 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     private Magasin shop;
 
+    private ImageButton selButton;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public ShopDetailFragment() {
+    }
+
+    NotifySel mCallback;
+
+    public interface NotifySel{
+        void notifySel();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (NotifySel) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement TextClicked");
+        }
     }
 
     @Override
@@ -151,7 +174,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
             }
         });
 
-        final ImageButton selButton = (ImageButton) rootView.findViewById(R.id.sel_button);
+        selButton = (ImageButton) rootView.findViewById(R.id.sel_button);
 
         if (shop.isSelected()) {
 
@@ -181,6 +204,8 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
 
                 shop.setSelected(!shop.isSelected());
+
+                mCallback.notifySel();
 
             }
         });
@@ -304,6 +329,20 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
     @Override
     public void onNothingSelected() {
+
+    }
+
+    public void onRefresh() {
+
+        if (shop.isSelected()) {
+
+            selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+
+        } else {
+
+            selButton.setImageResource(R.drawable.ic_star_black_24dp);
+
+        }
 
     }
 

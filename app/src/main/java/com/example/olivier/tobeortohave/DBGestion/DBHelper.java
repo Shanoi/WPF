@@ -105,6 +105,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void resetSel() {
+
+        ContentValues cv = new ContentValues();
+        cv.put("selection", 0);
+
+        myDataBase.update("magasin", cv, "selection = 1", null);
+
+    }
+
     public Cursor fetchStat(String date) {
 
         Cursor mCursor = myDataBase.rawQuery("SELECT *\n" +
