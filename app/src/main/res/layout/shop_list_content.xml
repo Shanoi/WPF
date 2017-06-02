@@ -30,10 +30,9 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/sel_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
+        android:background="@android:color/transparent"/>
 
 </LinearLayout>

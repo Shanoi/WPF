@@ -22,8 +22,9 @@ public class Magasin implements Parcelable, ClusterItem {
     private String telephone;
     private String mail;
     private String pageWeb;
+    private int selected;
 
-    public Magasin(int id, String nom, String adresse, String ville, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb) {
+    public Magasin(int id, String nom, String adresse, String ville, String postalCode, long latitude, long longitude, String telephone, String mail, String pageWeb, int selected) {
 
         this.id = id;
         this.nom = nom;
@@ -35,6 +36,8 @@ public class Magasin implements Parcelable, ClusterItem {
         this.telephone = telephone;
         this.mail = mail;
         this.pageWeb = pageWeb;
+        this.selected = selected;
+
     }
 
     protected Magasin(Parcel in) {
@@ -48,6 +51,7 @@ public class Magasin implements Parcelable, ClusterItem {
         telephone = in.readString();
         mail = in.readString();
         pageWeb = in.readString();
+        selected = in.readInt();
     }
 
     public static final Creator<Magasin> CREATOR = new Creator<Magasin>() {
@@ -102,6 +106,26 @@ public class Magasin implements Parcelable, ClusterItem {
         return ville;
     }
 
+    public boolean isSelected() {
+
+        return selected > 0;
+
+    }
+
+    public void setSelected(boolean sel){
+
+        if (sel){
+
+            selected = 1;
+
+        }else {
+
+            selected = 0;
+
+        }
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -119,6 +143,7 @@ public class Magasin implements Parcelable, ClusterItem {
         dest.writeString(telephone);
         dest.writeString(mail);
         dest.writeString(pageWeb);
+        dest.writeInt(selected);
     }
 
     @Override

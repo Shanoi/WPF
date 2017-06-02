@@ -119,6 +119,16 @@ public class ShopListActivity extends AppCompatActivity {
             holder.mIdView.setText(mValues.get(position).getNom());
             holder.mContentView.setText(mValues.get(position).getAdresse());
 
+            if (mValues.get(position).isSelected()) {
+
+                holder.selButton.setImageResource(R.drawable.ic_star_black_24dp);
+
+            } else {
+
+                holder.selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+
+            }
+
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -143,6 +153,32 @@ public class ShopListActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            holder.selButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.mItem.isSelected()) {
+
+                        System.out.println("TRUE");
+
+                        holder.selButton.setImageResource(R.drawable.ic_star_border_black_24dp);
+
+
+                    } else {
+
+                        System.out.println("FALSE");
+
+                        holder.selButton.setImageResource(R.drawable.ic_star_black_24dp);
+
+                    }
+
+
+                    holder.mItem.setSelected(!holder.mItem.isSelected());
+
+                }
+            });
+
         }
 
         @Override

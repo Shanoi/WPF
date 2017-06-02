@@ -2,6 +2,7 @@ package com.example.olivier.tobeortohave.Magasins.FragsAndActivity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.olivier.tobeortohave.Data.Magasin;
@@ -15,6 +16,7 @@ public class ListShopViewHolder extends RecyclerView.ViewHolder {
     public final View mView;
     public final TextView mIdView;
     public final TextView mContentView;
+    public final ImageButton selButton;
     public Magasin mItem;
 
     public ListShopViewHolder(View view) {
@@ -22,6 +24,7 @@ public class ListShopViewHolder extends RecyclerView.ViewHolder {
         mView = view;
         mIdView = (TextView) view.findViewById(R.id.id);
         mContentView = (TextView) view.findViewById(R.id.content);
+        selButton = (ImageButton) view.findViewById(R.id.sel_button);
     }
 
     @Override
