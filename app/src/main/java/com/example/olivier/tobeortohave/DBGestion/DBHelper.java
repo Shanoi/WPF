@@ -116,17 +116,41 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor fetchStat(String date) {
 
-        Cursor mCursor = myDataBase.rawQuery("SELECT *\n" +
-                "FROM Informations\n" +
-                "NATURAL JOIN magasin\n" +
-                "WHERE selection = 1\n" +
-                "AND date LIKE '%" + date + "'", null);
+        int count = 0;
 
-        System.out.println("QUERY : " + "SELECT *\n" +
-                "FROM Informations\n" +
-                "NATURAL JOIN magasin\n" +
-                "WHERE selection = 1\n" +
-                "AND date LIKE '%" + date + "'");
+        Cursor mCursor = myDataBase.rawQuery("SELECT COUNT(*)\n" +
+                "FROM magasin\n" +
+                "WHERE selection = 1", null);
+
+        mCursor.moveToFirst();
+
+
+        while (!mCursor.isAfterLast()) {
+
+            count = mCursor.getInt(0);
+
+            mCursor.moveToNext();
+
+        }
+
+        if(count > 0) {
+
+            mCursor = myDataBase.rawQuery("SELECT *\n" +
+                    "FROM Informations\n" +
+                    "NATURAL JOIN magasin\n" +
+                    "WHERE selection = 1\n" +
+                    "AND date LIKE '%" + date + "'", null);
+
+        }else {
+
+            mCursor = myDataBase.rawQuery("SELECT *\n" +
+                    "FROM Informations\n" +
+                    "NATURAL JOIN magasin\n" +
+                    "WHERE date LIKE '%" + date + "'", null);
+
+
+        }
+
 
         if (mCursor != null) {
             mCursor.moveToFirst();
