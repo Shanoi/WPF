@@ -73,6 +73,35 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!mTwoPane) {
+
+            DBHelper DB = new DBHelper(this);
+
+            try {
+                DB.createDataBase();
+
+                DB.openDataBase();
+
+                magasin = (ArrayList<Magasin>) DB.getMagasins(query);
+
+                DB.close();
+
+                adapter = new SimpleItemRecyclerViewAdapter(magasin);
+
+                ((RecyclerView) recyclerView).setAdapter(adapter);
+
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
     public void onReset(View view) {
 
         resetSel();
@@ -92,9 +121,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
             ((RecyclerView) recyclerView).setAdapter(adapter);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -125,9 +152,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
             DB.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -156,9 +181,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
             recyclerView.setAdapter(adapter);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -182,9 +205,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
             ((RecyclerView) recyclerView).setAdapter(adapter);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -297,9 +318,7 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
                 DB.close();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
 

@@ -189,7 +189,7 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         selButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                System.out.println("CLICK");
                 if (shop.isSelected()) {
 
                     selButton.setImageResource(R.drawable.ic_star_border_black_24dp);

@@ -19,7 +19,7 @@ import com.example.olivier.tobeortohave.R;
  * item details are presented side-by-side with a list of items
  * in a {@link ShopListActivity}.
  */
-public class ShopDetailActivity extends AppCompatActivity {
+public class ShopDetailActivity extends AppCompatActivity implements ShopDetailFragment.NotifySel {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,5 +81,10 @@ public class ShopDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void notifySel() {
+        //Nothing to do
     }
 }
