@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class mapListActivity extends FragmentActivity implements OnMapReadyCallback,
+public class mapListActivity extends FragmentActivity implements OnMapReadyCallback, ShopDetailFragment.NotifySel,
         ClusterManager.OnClusterClickListener<Magasin>,
         ClusterManager.OnClusterInfoWindowClickListener<Magasin>,
         ClusterManager.OnClusterItemClickListener<Magasin>,
@@ -169,5 +169,10 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void notifySel() {
+        //Nothing to do
     }
 }
