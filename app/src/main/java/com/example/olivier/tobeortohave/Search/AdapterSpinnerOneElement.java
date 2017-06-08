@@ -61,10 +61,7 @@ public class AdapterSpinnerOneElement extends ArrayAdapter<SpinnerItem> {
 
         holder.mTextView.setText(listState.get(position).toString());
 
-        // To check weather checked event fire from getview() or user input
-        /*isFromView = true;
-        holder.mCheckBox.setChecked(listState.get(position).isSelected());
-        isFromView = false;*/
+
 
         if ((position == 0)) {
             holder.mCheckBox.setVisibility(View.INVISIBLE);
@@ -75,36 +72,14 @@ public class AdapterSpinnerOneElement extends ArrayAdapter<SpinnerItem> {
         holder.mCheckBox.setTag(position);
 
         holder.mCheckBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {       //Detect on which sensor we have tick or not the checkbox
+            public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
                 SpinnerItem spinnerItem = (SpinnerItem) cb.getTag();
 
                 spinnerItem.setSelected(cb.isChecked());
 
-                /*for (int i = 0; i < Sensors.size(); i++) {
-
-                    if (Objects.equals(csensor.getName(), Sensors.get(i).getName()))
-                    {
-
-                        Sensors.get(i).setEnabled(cb.isChecked());      //Storage of the state of the sensor in our ArrayList of sensor
-
-                    }
-                }*/
-
             }
         });
-
-        /*holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int getPosition = (Integer) buttonView.getTag();
-                System.out.println("CHANGE : " + listState.get(getPosition).isSelected() + " POSITIOON : " + getPosition);
-                listState.get(getPosition).setSelected(listState.get(getPosition).isSelected());
-
-
-            }
-        });*/
 
         SpinnerItem listItem = (SpinnerItem) getItem(position);
 

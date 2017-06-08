@@ -239,86 +239,6 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         setDatatoChart(employeesChart, barEntries.get(1), getString(R.string.nbEmployés));
         setDatatoChart(prodrenvChart, barEntries.get(3), getString(R.string.nbProdRenv));
 
-//
-//        mChart.setDrawBarShadow(false);
-//        mChart.setDrawValueAboveBar(true);
-//
-//        mChart.getDescription().setEnabled(false);
-//
-//        // if more than 60 entries are displayed in the chart, no values will be
-//        // drawn
-//        mChart.setMaxVisibleValueCount(60);
-//
-//        // scaling can now only be done on x- and y-axis separately
-//        mChart.setPinchZoom(false);
-//
-//        mChart.setDrawGridBackground(false);
-//        // mChart.setDrawYLabels(false);
-//
-//        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
-//
-//        XAxis xAxis = mChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setDrawGridLines(false);
-//        xAxis.setGranularity(1f); // only intervals of 1 day
-//        xAxis.setLabelCount(7);
-//        xAxis.setValueFormatter(xAxisFormatter);
-//
-//        IAxisValueFormatter custom = new AxisCurrencyFormatter();
-//
-//        YAxis leftAxis = mChart.getAxisLeft();
-//        leftAxis.setLabelCount(8, false);
-//        leftAxis.setValueFormatter(custom);
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-//        leftAxis.setSpaceTop(15f);
-//        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-//
-//        YAxis rightAxis = mChart.getAxisRight();
-//        rightAxis.setDrawGridLines(false);
-//        rightAxis.setLabelCount(8, false);
-//        rightAxis.setValueFormatter(custom);
-//        rightAxis.setSpaceTop(15f);
-//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-//
-//        Legend l = mChart.getLegend();
-//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-//        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-//        l.setDrawInside(false);
-//        l.setForm(Legend.LegendForm.SQUARE);
-//        l.setFormSize(9f);
-//        l.setTextSize(11f);
-//        l.setXEntrySpace(4f);
-        // l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-        // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-
-
-
-        /*ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-
-        for (int i = 0; i < 12 + 1; i++) {
-            float mult = (1);
-            float val = (float) (Math.random() * mult);
-
-            yVals1.add(new BarEntry(i, val));
-
-        }
-
-        BarDataSet set1;
-        set1 = new BarDataSet(yVals1, "The year 2017");
-        set1.setColors(ColorTemplate.MATERIAL_COLORS);
-
-        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-        dataSets.add(set1);
-
-        BarData data = new BarData(dataSets);
-        data.setValueTextSize(10f);
-        data.setBarWidth(0.9f);
-
-        mChart.setData(data);*/
-
         return rootView;
     }
 
@@ -446,13 +366,6 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
 
         mChart.getAxisRight().setEnabled(false);
 
-        /*YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setValueFormatter(custom);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); */ // this replaces setStartAtZero(true)
-
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
@@ -462,11 +375,6 @@ public class ShopDetailFragment extends Fragment implements OnChartValueSelected
         l.setFormSize(9f);
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
-        // l.setExtra(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-        // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
-        // "def", "ghj", "ikl", "mno" });
-
     }
 
     private void setDatatoChart(BarChart barChart, ArrayList<BarEntry> barEntries, String title) {

@@ -133,10 +133,6 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
 
         }
 
-        //adapter.notifyDataSetChanged();
-
-        //setupRecyclerView((RecyclerView) recyclerView);
-
     }
 
     private void resetSel() {
@@ -248,8 +244,6 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        /*arguments.putString(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
-                        arguments.putInt(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
                         arguments.putParcelable(ShopDetailFragment.ARG_SHOP, holder.mItem);
                         ShopDetailFragment fragment = new ShopDetailFragment();
                         fragment.setArguments(arguments);
@@ -259,8 +253,6 @@ public class ShopListActivity extends AppCompatActivity implements ShopDetailFra
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, ShopDetailActivity.class);
-                        /*intent.putExtra(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
-                        intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
                         intent.putExtra(ShopDetailFragment.ARG_SHOP, holder.mItem);
 
                         context.startActivity(intent);

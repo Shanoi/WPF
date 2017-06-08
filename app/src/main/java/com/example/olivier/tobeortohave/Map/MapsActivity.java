@@ -86,66 +86,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-
-        LatLng tmpL;
-
-        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
         for (int i = 0; i < magasin.size(); i++) {
-
-            /*double lat = ALS.get(i).getLat();
-            double lng = ALS.get(i).getLng();*/
 
             Magasin offsetItem = magasin.get(i);
             mClusterManager.addItem(offsetItem);
-            //builder.include(offsetItem.getPosition());
-
-            /*mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener(){
-
-                @Override
-                public boolean onClusterItemClick(ClusterItem clusterItem) {
-
-                    final Magasin station = ((Magasin) clusterItem);
-
-                    new AlertDialog.Builder(MapsActivity.this)
-                            .setTitle(station.getName())
-                            .setMessage(station.getAddress())
-                            .setCancelable(false)
-                            .setPositiveButton("Aller", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent myIntent = new Intent(MapsActivity.this, MapsActivity_Itineraire.class);
-                                    myIntent.putExtra("Station", station );
-                                    startActivity(myIntent);
-                                }
-                            })
-                            .setNegativeButton("Fermer", null)
-                            .create().show();
-
-                    return true;
-
-                }
-
-            });*/
-
-            double lat = magasin.get(i).getLatitude();
-            double lng = magasin.get(i).getLongitude();
-
-            tmpL = new LatLng(lat, lng);
-            /*mMap.addMarker(new MarkerOptions().position(tmpL)
-                    .title(magasin.get(i).getNom())
-                    .snippet(magasin.get(i).getAdresse() + "\n" + magasin.get(i).getTelephone()));*/
 
         }
-
-        //LatLngBounds bounds = builder.build();
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
-
-
-        // Add a marker in Sydney and move the camera
-        /*LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
 
         mClusterManager.cluster();
 

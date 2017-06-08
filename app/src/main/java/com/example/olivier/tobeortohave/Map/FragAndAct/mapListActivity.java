@@ -21,14 +21,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * An activity representing a list of maps. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ShopDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
 public class mapListActivity extends FragmentActivity implements OnMapReadyCallback, ShopDetailFragment.NotifySel,
         ClusterManager.OnClusterClickListener<Magasin>,
         ClusterManager.OnClusterInfoWindowClickListener<Magasin>,
@@ -89,19 +81,13 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
-        //LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
         for (int i = 0; i < magasin.size(); i++) {
 
             Magasin offsetItem = magasin.get(i);
             mClusterManager.addItem(offsetItem);
-            //builder.include(offsetItem.getPosition());
 
         }
 
-        //LatLngBounds bounds = builder.build();
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
 
     }
 
@@ -130,8 +116,6 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
 
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-                        /*arguments.putString(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
-                        arguments.putInt(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
             arguments.putParcelable(ShopDetailFragment.ARG_SHOP, magasin);
             ShopDetailFragment fragment = new ShopDetailFragment();
             fragment.setArguments(arguments);
@@ -162,8 +146,6 @@ public class mapListActivity extends FragmentActivity implements OnMapReadyCallb
         if (!mTwoPane) {
 
             Intent intent = new Intent(this, ShopDetailActivity.class);
-                        /*intent.putExtra(ShopDetailFragment.ARG_ITEM_NOM, holder.mItem.getNom());
-                        intent.putExtra(ShopDetailFragment.ARG_ITEM_ID, holder.mItem.getId());*/
             intent.putExtra(ShopDetailFragment.ARG_SHOP, magasin);
 
             startActivity(intent);

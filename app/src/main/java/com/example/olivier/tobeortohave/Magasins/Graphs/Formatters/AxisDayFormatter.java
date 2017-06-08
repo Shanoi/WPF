@@ -25,24 +25,16 @@ public class AxisDayFormatter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        //System.out.println(chart.getData().getDataSets().get(0).getEntryForIndex((int) value - 1706).getData().toString());
-
-        //return chart.getData().getDataSets().get(0).getEntryForIndex((int) value - 1706).getData().toString();
-
         if (value > 1712) {
 
             value += 88;
 
         }
 
-        SimpleDateFormat longFormat = new SimpleDateFormat("dd/MMM/yy", Locale.getDefault());
-
         SimpleDateFormat shortFormat = new SimpleDateFormat("MMM/yy", Locale.getDefault());
 
         DateFormat df = new SimpleDateFormat("yyMM", Locale.getDefault());
         Date date;
-
-        //System.out.println("PARSE : " + (int) value);
 
         try {
             date = df.parse(String.valueOf((int) value));
@@ -53,15 +45,6 @@ public class AxisDayFormatter implements IAxisValueFormatter {
 
         return shortFormat.format(date);
 
-        /*if (chart.getVisibleXRange() > 30 * 6) {
-
-            return shortFormat.format(date);
-
-        } else {
-
-            return longFormat.format(date);
-
-        }*/
     }
 
 }
