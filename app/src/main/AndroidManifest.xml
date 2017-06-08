@@ -56,23 +56,11 @@
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Stats.StatsActivity" />
-        <activity
-            android:name=".Map.FragandAct.ShopListActivity"
-            android:label="@string/title_shop_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Map.FragandAct.ShopDetailActivity"
-            android:label="@string/title_shop_detail"
-            android:parentActivityName=".Map.FragandAct.ShopListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.olivier.tobeortohave.Map.FragandAct.ShopListActivity" />
-        </activity>
+
         <activity
             android:name=".Map.FragAndAct.mapListActivity"
             android:label="@string/title_map_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

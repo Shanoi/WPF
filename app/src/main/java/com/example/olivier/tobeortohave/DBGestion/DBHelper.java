@@ -100,9 +100,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         myDataBase.update("magasin", cv, "idMagasin=" + id, null);
 
-        //myDataBase.
-
-
     }
 
     public void resetSel() {
@@ -209,8 +206,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public List<Magasin> getMagasins(String query) {
-
-        System.out.println("QUERY FROM DB : " + query);
 
         ArrayList<Magasin> magasins = new ArrayList<>();
 
